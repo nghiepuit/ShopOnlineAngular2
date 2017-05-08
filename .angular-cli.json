@@ -1,61 +1,66 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "project": {
-    "name": "shop-online"
-  },
-  "apps": [
-    {
-      "root": "src",
-      "outDir": "dist",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "test.ts",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
-      "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/font-awesome/css/font-awesome.css",
-        "../node_modules/animate.css/animate.css",
-        "assets/css/custom.css",
-        "styles.css"
-      ],
-      "scripts": [],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
-      }
-    }
-  ],
-  "e2e": {
-    "protractor": {
-      "config": "./protractor.conf.js"
-    }
-  },
-  "lint": [
-    {
-      "project": "src/tsconfig.app.json"
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "project": {
+        "name": "shop-online"
     },
-    {
-      "project": "src/tsconfig.spec.json"
+    "apps": [{
+        "root": "src",
+        "outDir": "dist",
+        "assets": [
+            "assets",
+            "favicon.ico"
+        ],
+        "index": "index.html",
+        "main": "main.ts",
+        "polyfills": "polyfills.ts",
+        "test": "test.ts",
+        "tsconfig": "tsconfig.app.json",
+        "testTsconfig": "tsconfig.spec.json",
+        "prefix": "app",
+        "styles": [
+            "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "../node_modules/font-awesome/css/font-awesome.css",
+            "../node_modules/animate.css/animate.css",
+            "assets/css/green.css",
+            "assets/css/custom.css",
+            "styles.css",
+            "../node_modules/@swimlane/ngx-datatable/release/index.css",
+            "../node_modules/@swimlane/ngx-datatable/release/themes/material.css",
+            "../node_modules/@swimlane/ngx-datatable/release/assets/icons.css"
+        ],
+        "scripts": [
+            "../node_modules/jquery/dist/jquery.min.js",
+            "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+            "assets/js/fastclick.js",
+            "assets/js/nprogress.js",
+            "assets/js/icheck.min.js",
+            "assets/js/custom.min.js"
+        ],
+        "environmentSource": "environments/environment.ts",
+        "environments": {
+            "dev": "environments/environment.ts",
+            "prod": "environments/environment.prod.ts"
+        }
+    }],
+    "e2e": {
+        "protractor": {
+            "config": "./protractor.conf.js"
+        }
     },
-    {
-      "project": "e2e/tsconfig.e2e.json"
+    "lint": [{
+        "project": "src/tsconfig.app.json"
+    }, {
+        "project": "src/tsconfig.spec.json"
+    }, {
+        "project": "e2e/tsconfig.e2e.json"
+    }],
+    "test": {
+        "karma": {
+            "config": "./karma.conf.js"
+        }
+    },
+    "defaults": {
+        "styleExt": "css",
+        "component": {}
     }
-  ],
-  "test": {
-    "karma": {
-      "config": "./karma.conf.js"
-    }
-  },
-  "defaults": {
-    "styleExt": "css",
-    "component": {}
-  }
 }
