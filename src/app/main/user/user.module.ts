@@ -7,6 +7,7 @@ import { UserService } from './service/user.service';
 // Flash-Message Module
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
+
 const userRoutes: Routes = [
 	{ path: '', redirectTo: 'index', pathMatch: 'full' },
 	{ path: 'index', component: UserComponent }
