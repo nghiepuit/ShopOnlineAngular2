@@ -36,7 +36,7 @@ $(document).ready(function() {
         var $li = $(this).parent();
 
         if ($li.is('.active')) {
-            $li.removeClass('active active-sm');
+            // $li.removeClass('active active-sm');
             $('ul:first', $li).slideUp(function() {
                 setContentHeight();
             });
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
     $SIDEBAR_MENU.find('a').filter(function() {
         return this.href == CURRENT_URL;
-    }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
+    }).parent('li').parents('ul').slideDown(function() {
         setContentHeight();
     }).parent().addClass('active');
 
