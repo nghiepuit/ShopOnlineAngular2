@@ -11,7 +11,7 @@ import { MessageConstants } from '../../core/common/message.constants';
 export class RoleComponent implements OnInit {
 
 	public pageIndex: number = 1;
-	public pageSize: number = 1;
+	public pageSize: number = 10;
 	public pageDisplay: number = 10;
 	public filter: string = '';
 	public roles: any[];
@@ -36,9 +36,25 @@ export class RoleComponent implements OnInit {
 			});
 	}
 
-	pageChanged($event){
+	pageChanged($event) {
 		this.pageIndex = $event.page;
 		this.loadData();
+	}
+
+	setPageSize(pageSize) {
+		this.pageSize = pageSize;
+		this.loadData();
+	}
+
+	deleteRole(id: any) {
+		this._notificationService.printConfirmationDialog(MessageConstants.CONFIRM_DELETE_MSG, () => this.deleteRoleConfirm(id));
+	}
+
+	deleteRoleConfirm(id: any) {
+		this._dataService.delete('/api/appRole/delete', 'id', id).subscribe((response : any) => {
+			this._notificationService.printSuccessMessage(MessageConstants.DELETED_OK_MSG);
+			this.loadData();
+		});
 	}
 
 }

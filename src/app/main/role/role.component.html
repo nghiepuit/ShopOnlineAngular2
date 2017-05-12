@@ -20,7 +20,7 @@
             <div class="x_title">
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
-                        <button type="button" class="btn btn-success" [routerLink]="['/main/role/form']">New Role</button>
+                        <button type="button" class="btn btn-success" [routerLink]="['/main/role/form']"><i class="mdi mdi-plus mr-5"></i>New Role</button>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
@@ -29,22 +29,47 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th></th>
+                            <th class="td-nowrap text-center">
+                                <a>
+                                    <p _ngcontent-c2="" class="mr-8 p-inline">
+                                        <span _ngcontent-c2="">Role Name</span>
+                                    </p>
+                                    <span class="caret-up"></span>
+                                    <span class="caret-down"></span>
+                                </a>
+                            </th>
+                            <th class="td-nowrap text-center">
+                                <a>
+                                    <p _ngcontent-c2="" class="mr-8 p-inline">
+                                        <span _ngcontent-c2="">Description</span>
+                                    </p>
+                                    <span class="caret-up"></span>
+                                    <span class="caret-down"></span>
+                                </a>
+                            </th>
+                            <th class="td-nowrap text-center"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let role of roles">
                             <td width="30%">{{ role.Name }}</td>
                             <td>{{ role.Description }}</td>
-                            <td width="10%">
-                                <button class="btn btn-success"><i class="fa fa-pencil-square-o"></i></button>
-                                <button class="btn btn-success"><i class="fa fa-trash"></i></button>
+                            <td width="10%" class="text-center">
+                                <a class="btn btn-icon mr-5" role="button" data-toggle="tooltip" title="Edit"><i class="mdi mdi-pencil"></i></a>
+                                <a class="btn btn-icon" role="button" data-toggle="tooltip" title="Delete" (click)="deleteRole(role.Id)"><i class="mdi mdi-delete"></i></a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="table-display-control">
+                    <span>Display</span>
+                    <select class="form-control" #t (change)="setPageSize(t.value)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                    <span>/ {{ totalRow }} record(s)</span>
+                </div>
                 <div class="text-right">
                     <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow" [(ngModel)]="pageIndex" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
                 </div>
