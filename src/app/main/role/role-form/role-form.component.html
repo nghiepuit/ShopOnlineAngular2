@@ -1,3 +1,48 @@
-<p>
-  role-form works!
-</p>
+<main class="main">
+    <div class="title-wrapper">
+        <h2 class="sub-header font-condensed">New User Role</h2>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="block-advance-search" id="block-advance-search">
+                        <div class="well">
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label text-left col-xs-12 col-sm-5">Role Name</label>
+                                            <div class="col-xs-12 col-sm-7">
+                                                <input type="text" class="form-control none-mb-sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label text-left col-xs-12 col-sm-5">Description</label>
+                                            <div class="col-xs-12 col-sm-7">
+                                                <input type="text" class="form-control none-mb-sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <hr class="hr-inside">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <a [routerLink]="['/main/role/index']" type="submit" class="btn btn-default mr-5"><i class="mdi mdi-arrow-left mr-5"></i>Back To User Role List</a>
+                                        <a type="submit" class="btn btn-success"><i class="mdi mdi-content-save mr-5"></i>Save</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
