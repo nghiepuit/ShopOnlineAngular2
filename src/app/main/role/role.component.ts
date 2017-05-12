@@ -14,8 +14,10 @@ export class RoleComponent implements OnInit {
 	public pageSize: number = 10;
 	public pageDisplay: number = 10;
 	public filter: string = '';
-	public roles: any[];
+	public items: any[];
 	public totalRow: number;
+	key: string;
+	value: number = 1;
 
 	constructor(
 		private _dataService: DataService,
@@ -29,7 +31,7 @@ export class RoleComponent implements OnInit {
 	loadData() {
 		this._dataService.get('/api/appRole/getlistpaging?page=' + this.pageIndex + '&pageSize=' + this.pageSize + '&filter=' + this.filter)
 			.subscribe((response: any) => {
-				this.roles = response.Items;
+				this.items = response.Items;
 				this.pageIndex = response.PageIndex;
 				this.pageSize = response.PageSize;
 				this.totalRow = response.TotalRows;
@@ -51,10 +53,15 @@ export class RoleComponent implements OnInit {
 	}
 
 	deleteRoleConfirm(id: any) {
-		this._dataService.delete('/api/appRole/delete', 'id', id).subscribe((response : any) => {
+		this._dataService.delete('/api/appRole/delete', 'id', id).subscribe((response: any) => {
 			this._notificationService.printSuccessMessage(MessageConstants.DELETED_OK_MSG);
 			this.loadData();
 		});
+	}
+
+	sort(key: string) {
+		this.key = key;
+		this.value = -(this.value);
 	}
 
 }

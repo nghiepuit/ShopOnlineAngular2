@@ -4,9 +4,11 @@ import { RoleComponent } from './role.component';
 import { Routes, RouterModule } from '@angular/router';
 import { DataService } from './../../core/services/data.service';
 import { NotificationService } from './../../core/services/notification.service';
-import { PaginationModule  } from 'ngx-bootstrap/pagination';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { RoleFormComponent } from './role-form/role-form.component';
+// Pipe
+import { SortPipe } from './../../core/pipes/sort.pipe';
 
 const userRoutes: Routes = [
 	{ path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -25,6 +27,10 @@ const userRoutes: Routes = [
 		DataService,
 		NotificationService
 	],
-	declarations: [RoleComponent, RoleFormComponent]
+	declarations: [
+		RoleComponent,
+		RoleFormComponent,
+		SortPipe
+	]
 })
 export class RoleModule { }

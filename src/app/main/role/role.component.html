@@ -5,9 +5,9 @@
     <div class="title_right">
         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
+                <input type="text" class="form-control" placeholder="Search role..." name="filter" [(ngModel)]="filter" (keyup.enter)="loadData()">
                 <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Search</button>
+                      <button class="btn btn-default" type="button" (click)="loadData()">Search</button>
                     </span>
             </div>
         </div>
@@ -30,33 +30,33 @@
                     <thead>
                         <tr>
                             <th class="td-nowrap text-center">
-                                <a>
+                                <a (click)="sort('Name')">
                                     <p _ngcontent-c2="" class="mr-8 p-inline">
                                         <span _ngcontent-c2="">Role Name</span>
                                     </p>
-                                    <span class="caret-up"></span>
-                                    <span class="caret-down"></span>
+                                    <span class="caret-up" [class.active]="key == 'Name' && value == 1"></span>
+                                    <span class="caret-down" [class.active]="key == 'Name' && value == -1"></span>
                                 </a>
                             </th>
                             <th class="td-nowrap text-center">
-                                <a>
+                                <a (click)="sort('Description')">
                                     <p _ngcontent-c2="" class="mr-8 p-inline">
                                         <span _ngcontent-c2="">Description</span>
                                     </p>
-                                    <span class="caret-up"></span>
-                                    <span class="caret-down"></span>
+                                    <span class="caret-up" [class.active]="key == 'Description' && value == 1"></span>
+                                    <span class="caret-down" [class.active]="key == 'Description' && value == -1"></span>
                                 </a>
                             </th>
                             <th class="td-nowrap text-center"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let role of roles">
-                            <td width="30%">{{ role.Name }}</td>
-                            <td>{{ role.Description }}</td>
+                        <tr *ngFor="let item of items | sort :key :value">
+                            <td width="30%">{{ item.Name }}</td>
+                            <td>{{ item.Description }}</td>
                             <td width="10%" class="text-center">
                                 <a class="btn btn-icon mr-5" role="button" data-toggle="tooltip" title="Edit"><i class="mdi mdi-pencil"></i></a>
-                                <a class="btn btn-icon" role="button" data-toggle="tooltip" title="Delete" (click)="deleteRole(role.Id)"><i class="mdi mdi-delete"></i></a>
+                                <a class="btn btn-icon" role="button" data-toggle="tooltip" title="Delete" (click)="deleteRole(item.Id)"><i class="mdi mdi-delete"></i></a>
                             </td>
                         </tr>
                     </tbody>
