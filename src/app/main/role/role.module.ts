@@ -7,8 +7,8 @@ import { NotificationService } from './../../core/services/notification.service'
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { RoleFormComponent } from './role-form/role-form.component';
-// Pipe
-import { SortPipe } from './../../core/pipes/sort.pipe';
+// Shared
+import { CoreModule } from './../../core/core.module';
 
 const userRoutes: Routes = [
 	{ path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -22,6 +22,7 @@ const userRoutes: Routes = [
 		CommonModule,
 		PaginationModule,
 		FormsModule,
+		CoreModule,
 		RouterModule.forChild(userRoutes)
 	],
 	providers: [
@@ -30,8 +31,7 @@ const userRoutes: Routes = [
 	],
 	declarations: [
 		RoleComponent,
-		RoleFormComponent,
-		SortPipe
+		RoleFormComponent
 	]
 })
 export class RoleModule { }

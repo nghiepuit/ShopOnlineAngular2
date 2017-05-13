@@ -1,0 +1,135 @@
+<div class="title-wrapper">
+    <h2 class="sub-header font-condensed">Add User</h2>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="maintenance-period">
+                    <form class="form-horizontal" novalidate #addEditForm="ngForm" (ngSubmit)="onSubmit(addEditForm.valid)" *ngIf="user">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 control-label">Full Name</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <input #fullname="ngModel" [(ngModel)]="user.FullName" required minlength="3" type="text" name="fullname" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Email</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <input #email="ngModel" [(ngModel)]="user.Email" required minlength="3" type="text" name="email" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 control-label">Username</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <input #username="ngModel" [(ngModel)]="user.UserName" required minlength="3" type="text" name="username" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Address</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <input #address="ngModel" [(ngModel)]="user.Address" required minlength="3" type="text" name="address" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 control-label">Password</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <input #password="ngModel" [(ngModel)]="user.Password" required minlength="3" type="password" name="password" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Phone</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <input #phone="ngModel" [(ngModel)]="user.Phone" required minlength="3" type="text" name="phone" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 control-label">Confirm Password</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <input #repassword="ngModel" [(ngModel)]="user.Repassword" required minlength="3" type="password" name="repassword" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Birthday</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <input #birthday="ngModel" [(ngModel)]="user.BirthDay" required minlength="3" type="text" name="birthday" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 control-label">Avatar</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <input type="file" name="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Gender</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Male
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Female
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left col-sm-4 col-md-4 control-label">User Group</label>
+                                    <div class="col-sm-5 col-md-6">
+                                        <select class="form-control">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <a [routerLink]="['/main/user/index']" href="#" class="btn btn-default mr-5"><i class="mdi mdi-keyboard-backspace mr-5"></i>Back To User List</a>
+                                <button href="#" class="btn btn-success" [disabled]="!addEditForm.form.valid"><i class="mdi mdi-content-save mr-5"></i>Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

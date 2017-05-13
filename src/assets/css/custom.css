@@ -451,7 +451,7 @@ body {
 
 .page-title .title_right {
     width: 55%;
-    float: left;
+    float: right;
     display: block;
 }
 
@@ -5822,6 +5822,31 @@ a:hover {
 
 .mr-5{
     margin-left: 5px;
+}
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 5px solid #26B99A;
+}
+
+.form-horizontal .form-group {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+h2.sub-header {
+    margin-top: 0;
+}
+
+.form-horizontal .control-label {
+    margin-bottom: 0;
+    padding-top: 7px;
+}
+
+hr {
+    border-top: 3px solid #dddddd;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 /*My Custom*/

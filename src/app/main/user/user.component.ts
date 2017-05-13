@@ -33,7 +33,6 @@ export class UserComponent implements OnInit {
 	loadData() {
 		this._dataService.get('/api/appUser/getlistpaging?page=' + this.pageIndex + '&pageSize=' + this.pageSize + '&filter=' + this.filter)
 			.subscribe((response: any) => {
-				console.log(response);
 				this.users = response.Items;
 				this.pageIndex = response.PageIndex;
 				this.pageSize = response.PageSize;

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { UserModule } from './user/user.module';
+import { RoleModule } from './role/role.module';
+
 // Service
 import { NotificationService } from './../core/services/notification.service';
 import { AuthService } from './../core/services/auth.service';
@@ -14,6 +16,7 @@ import { mainRoutes } from './main.routes';
 	imports: [
 		CommonModule,
 		UserModule,
+		RoleModule,
 		RouterModule.forChild(mainRoutes)
 	],
 	providers: [
@@ -21,6 +24,8 @@ import { mainRoutes } from './main.routes';
 		AuthService,
 		UtilityService
 	],
-	declarations: [MainComponent]
+	declarations: [
+		MainComponent
+	]
 })
 export class MainModule { }
