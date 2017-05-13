@@ -13,7 +13,8 @@ import { SortPipe } from './../../core/pipes/sort.pipe';
 const userRoutes: Routes = [
 	{ path: '', redirectTo: 'index', pathMatch: 'full' },
 	{ path: 'index', component: RoleComponent },
-	{ path: 'form', component: RoleFormComponent }
+	{ path: 'form', component: RoleFormComponent },
+	{ path: 'form/:id', component: RoleFormComponent },
 ];
 
 @NgModule({

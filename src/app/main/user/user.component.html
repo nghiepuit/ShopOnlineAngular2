@@ -125,13 +125,14 @@
                         </form>
                     </div>
                 </div>
+                <!-- Table -->
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th class="td-nowrap text-center">
                                 <a>
                                     <p _ngcontent-c2="" class="mr-8 p-inline">
-                                        <span _ngcontent-c2="">Customer<br _ngcontent-c2="">Code</span>
+                                        <span _ngcontent-c2="">Avatar<br _ngcontent-c2=""></span>
                                     </p>
                                     <span class="caret-up"></span>
                                     <span class="caret-down"></span>
@@ -140,7 +141,43 @@
                             <th class="td-nowrap text-center">
                                 <a>
                                     <p _ngcontent-c2="" class="mr-8 p-inline">
-                                        <span _ngcontent-c2="">Full Name</span>
+                                        <span _ngcontent-c2="">Username</span>
+                                    </p>
+                                    <span class="caret-up"></span>
+                                    <span class="caret-down"></span>
+                                </a>
+                            </th>
+                            <th class="td-nowrap text-center">
+                                <a>
+                                    <p _ngcontent-c2="" class="mr-8 p-inline">
+                                        <span _ngcontent-c2="">Fullname</span>
+                                    </p>
+                                    <span class="caret-up"></span>
+                                    <span class="caret-down"></span>
+                                </a>
+                            </th>
+                            <th class="td-nowrap text-center">
+                                <a>
+                                    <p _ngcontent-c2="" class="mr-8 p-inline">
+                                        <span _ngcontent-c2="">Email</span>
+                                    </p>
+                                    <span class="caret-up"></span>
+                                    <span class="caret-down"></span>
+                                </a>
+                            </th>
+                            <th class="td-nowrap text-center">
+                                <a>
+                                    <p _ngcontent-c2="" class="mr-8 p-inline">
+                                        <span _ngcontent-c2="">Birthday</span>
+                                    </p>
+                                    <span class="caret-up"></span>
+                                    <span class="caret-down"></span>
+                                </a>
+                            </th>
+                            <th class="td-nowrap text-center">
+                                <a>
+                                    <p _ngcontent-c2="" class="mr-8 p-inline">
+                                        <span _ngcontent-c2="">Phone</span>
                                     </p>
                                     <span class="caret-up"></span>
                                     <span class="caret-down"></span>
@@ -157,23 +194,56 @@
                             <td>
                                 <input type="text" class="form-control">
                             </td>
+                            <td>
+                                <input type="text" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control">
+                            </td>
                             <td class="td-nowrap text-center">
                                 <a class="btn btn-icon" role="button" data-toggle="tooltip" title="Clear"><i class="mdi mdi-filter-remove"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>John smith</td>
-                            <td>Hello</td>
+                        <tr *ngFor="let user of users">
+                            <td class="text-center"><img [src]="user.Avatar" style="max-height: 100px;" alt=""></td>
+                            <td>{{ user.UserName }}</td>
+                            <td>{{ user.FullName }}</td>
+                            <td>{{ user.Email }}</td>
+                            <td>{{ user.BirthDay | date : 'dd/MM/yyyy' }}</td>
+                            <td>{{ user.PhoneNumber }}</td>
                             <td width="10%" class="text-center">
-                                <a class="btn btn-icon mr-5" role="button" data-toggle="tooltip" title="Edit"><i class="mdi mdi-pencil"></i></a>
-                                <a class="btn btn-icon" role="button" data-toggle="tooltip" title="Delete"><i class="mdi mdi-delete"></i></a>
+                                <a class="btn btn-icon mr-5" role="button" (click)="editUser(user.Id)">
+                                    <i class="mdi mdi-pencil"></i>
+                                </a>
+                                <a class="btn btn-icon" role="button" (click)="deleteUser(user.Id)"><i class="mdi mdi-delete"></i></a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-                    <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow" [(ngModel)]="pageIndex" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
-                </div> -->
+            </div>
+            <div class="row mt-15">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="table-display-control ml-5">
+                        <span>Display</span>
+                        <select class="form-control" #t (change)="setPageSize(t.value)">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span>/ {{ totalRow }} record(s)</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="text-right mr-5">
+                        <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow" [(ngModel)]="pageIndex" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

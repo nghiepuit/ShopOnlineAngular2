@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from './../../core/services/data.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { MessageConstants } from '../../core/common/message.constants';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-role',
@@ -21,7 +22,8 @@ export class RoleComponent implements OnInit {
 
 	constructor(
 		private _dataService: DataService,
-		private _notificationService: NotificationService
+		private _notificationService: NotificationService,
+		private _router : Router
 	) { }
 
 	ngOnInit() {
@@ -62,6 +64,10 @@ export class RoleComponent implements OnInit {
 	sort(key: string) {
 		this.key = key;
 		this.value = -(this.value);
+	}
+
+	editRole(id: any) {
+		this._router.navigate(['main/role/form',id]);
 	}
 
 }
