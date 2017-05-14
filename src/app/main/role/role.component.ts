@@ -23,7 +23,7 @@ export class RoleComponent implements OnInit {
 	constructor(
 		private _dataService: DataService,
 		private _notificationService: NotificationService,
-		private _router : Router
+		private _router: Router
 	) { }
 
 	ngOnInit() {
@@ -67,7 +67,7 @@ export class RoleComponent implements OnInit {
 	}
 
 	editRole(id: any) {
-		this._router.navigate(['main/role/form',id]);
+		this._router.navigate(['main/role/form', id]);
 	}
 
 }

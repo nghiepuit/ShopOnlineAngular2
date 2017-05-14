@@ -17,8 +17,8 @@
                                                 <input type="hidden" [(ngModel)]="role.Id" name="id">
                                                 <input type="text" class="form-control none-mb-sm" #name="ngModel" [(ngModel)]="role.Name" required minlength="3" name="name" [disabled]="role.Id">
                                                 <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
-                                                Name min length is 3 character!
-                                            </small>
+                                                    Name min length is 3 character!
+                                                </small>
                                             </div>
                                         </div>
                                     </div>

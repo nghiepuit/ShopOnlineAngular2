@@ -13,6 +13,7 @@
                                     <label class="text-left col-sm-4 col-md-4 control-label">Full Name</label>
                                     <div class="col-sm-5 col-md-6">
                                         <input #fullname="ngModel" [(ngModel)]="user.FullName" required minlength="3" type="text" name="fullname" class="form-control">
+                                        <small [class.hidden]="fullname.valid || (fullname.pristine && !addEditForm.submitted)" class="label label-danger">Full Name min length is 3 character !</small>
                                     </div>
                                 </div>
                             </div>
@@ -20,7 +21,8 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Email</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input #email="ngModel" [(ngModel)]="user.Email" required minlength="3" type="text" name="email" class="form-control">
+                                        <input #email="ngModel" [(ngModel)]="user.Email" required type="text" name="email" class="form-control" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                        <span [class.hidden]="email.valid || (email.pristine && !addEditForm.submitted)" class="label label-danger">Email is wrong !</span>
                                     </div>
                                 </div>
                             </div>
@@ -31,6 +33,7 @@
                                     <label class="text-left col-sm-4 col-md-4 control-label">Username</label>
                                     <div class="col-sm-5 col-md-6">
                                         <input #username="ngModel" [(ngModel)]="user.UserName" required minlength="3" type="text" name="username" type="text" class="form-control">
+                                        <span [class.hidden]="username.valid || (username.pristine && !addEditForm.submitted)" class="label label-danger">Username min length is 3 character !</span>
                                     </div>
                                 </div>
                             </div>
@@ -44,29 +47,30 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-6" *ngIf="!user.Id">
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 control-label">Password</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input #password="ngModel" [(ngModel)]="user.Password" required minlength="3" type="password" name="password" class="form-control">
+                                        <input #password="ngModel" [(ngModel)]="user.Password" required minlength="6" type="password" name="password" class="form-control">
+                                        <span [class.hidden]="password.valid || (password.pristine && !addEditForm.submitted)" class="label label-danger">Password min length is 6 character !</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
-                                    <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Phone</label>
+                                    <label class="text-left col-sm-4 col-md-4 control-label" [ngClass]="{ 'col-md-offset-2' : !user.Id }">Phone</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input #phone="ngModel" [(ngModel)]="user.Phone" required minlength="3" type="text" name="phone" type="text" class="form-control">
+                                        <input #phone="ngModel" [(ngModel)]="user.PhoneNumber" required type="text" name="phone" class="form-control">
+                                        <span [class.hidden]="phone.valid || (phone.pristine && !addEditForm.submitted)" class="label label-danger">Phone number is required!</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-6" *ngIf="!user.Id">
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 control-label">Confirm Password</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input #repassword="ngModel" [(ngModel)]="user.Repassword" required minlength="3" type="password" name="repassword" class="form-control">
+                                        <input validateEqual="repassword" #repassword="ngModel" [(ngModel)]="user.ConfirmPassword" required minlength="6" type="password" name="repassword" class="form-control">
+                                        <span [class.hidden]="repassword.valid || (repassword.pristine && !addEditForm.submitted)" class="label label-danger">Confirm Password is wrong!</span>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +78,7 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Birthday</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input #birthday="ngModel" [(ngModel)]="user.BirthDay" required minlength="3" type="text" name="birthday" class="form-control">
+                                        <input daterangepicker [options]="dateOptions" #birthday="ngModel" [(ngModel)]="user.BirthDay" type="text" name="birthday" class="form-control" (selected)="selectedDate($event)"> {{ user.BirthDay }}
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +88,10 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 control-label">Avatar</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input type="file" name="" class="form-control">
+                                        <input type="file" #avatar name="avatar" class="form-control">
+                                        <span class="label label-danger">Only support *.png *.jpg *.jpeg !</span>
+                                        <input type="hidden" class="form-control" [(ngModel)]="user.Avatar" name="avatarUrl">
+                                        <img [src]="baseFolder + user.Avatar" width="128" *ngIf="user.Avatar">
                                     </div>
                                 </div>
                             </div>
@@ -93,10 +100,10 @@
                                     <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Gender</label>
                                     <div class="col-sm-5 col-md-6">
                                         <label class="radio-inline">
-                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Male
+                                            <input (change)="selectGender($event)" name="gender" type="radio" #gender="ngModel" [ngModel]="user.Gender" value="True" required [checked]="user.Gender=='True'"> Male
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Female
+                                            <input (change)="selectGender($event)" name="gender" type="radio" #gender="ngModel" [ngModel]="user.Gender" value="False" required [checked]="user.Gender=='False'"> FeMale
                                         </label>
                                     </div>
                                 </div>
@@ -107,11 +114,7 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 control-label">User Group</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <select class="form-control">
-                                            <option></option>
-                                            <option></option>
-                                            <option></option>
-                                        </select>
+                                        <ss-multiselect-dropdown [ngModelOptions]="{ standalone : true }" [options]="allRoles" [(ngModel)]="myRoles"></ss-multiselect-dropdown>
                                     </div>
                                 </div>
                             </div>

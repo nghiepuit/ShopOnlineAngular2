@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from './../../core/services/data.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { MessageConstants } from '../../core/common/message.constants';
+import { SystemConstants } from '../../core/common/system.constants';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,8 +18,9 @@ export class UserComponent implements OnInit {
 	public filter: string = '';
 	public users: any[];
 	public totalRow: number;
-	key: string;
-	value: number = 1;
+	public key: string;
+	public value: number = 1;
+	public baseFolder : string = SystemConstants.BASE_API;
 
 	constructor(
 		private _dataService: DataService,
@@ -55,7 +57,7 @@ export class UserComponent implements OnInit {
 	}
 
 	deleteUserConfirm(id: any) {
-		this._dataService.delete('/api/appRole/delete', 'id', id).subscribe((response: any) => {
+		this._dataService.delete('/api/appUser/delete', 'id', id).subscribe((response: any) => {
 			this._notificationService.printSuccessMessage(MessageConstants.DELETED_OK_MSG);
 			this.loadData();
 		});
@@ -67,7 +69,7 @@ export class UserComponent implements OnInit {
 	}
 
 	editUser(id: any) {
-		this._router.navigate(['main/role/form',id]);
+		this._router.navigate(['main/user/form',id]);
 	}
 
 }

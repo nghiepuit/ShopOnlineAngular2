@@ -5849,4 +5849,9 @@ hr {
     margin-bottom: 15px;
 }
 
+.daterangepicker td.active, .daterangepicker td.active:hover{
+    background-color: #26B99A !important;
+    border-color: transparent;
+}
+
 /*My Custom*/

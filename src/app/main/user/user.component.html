@@ -157,12 +157,12 @@
                                 </a>
                             </th>
                             <th class="td-nowrap text-center">
-                                <a (click)="sort('Phone')">
+                                <a (click)="sort('PhoneNumber')">
                                     <p _ngcontent-c2="" class="mr-8 p-inline">
                                         <span _ngcontent-c2="">Phone</span>
                                     </p>
-                                    <span class="caret-up" [class.active]="key == 'Phone' && value == 1"></span>
-                                    <span class="caret-down" [class.active]="key == 'Phone' && value == 1"></span>
+                                    <span class="caret-up" [class.active]="key == 'PhoneNumber' && value == 1"></span>
+                                    <span class="caret-down" [class.active]="key == 'PhoneNumber' && value == 1"></span>
                                 </a>
                             </th>
                             <th></th>
@@ -193,7 +193,7 @@
                             </td>
                         </tr>
                         <tr *ngFor="let user of users | sort :key :value">
-                            <td class="text-center"><img [src]="user.Avatar" style="max-height: 100px;" alt=""></td>
+                            <td class="text-center"><img class="img-responsive" width="128" [src]="baseFolder + user.Avatar" alt="{{ user.UserName }}"></td>
                             <td>{{ user.UserName }}</td>
                             <td>{{ user.FullName }}</td>
                             <td>{{ user.Email }}</td>
