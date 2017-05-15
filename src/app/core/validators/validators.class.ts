@@ -13,12 +13,27 @@ export class MyValidators{
 		}
 	}
 
+	static fileValidators(formControl : FormControl){
+		console.log(formControl.value);
+	}
+
+	static passwordValidators(formControl : FormControl){
+		let value : string = ( formControl.value != null) ? formControl.value : '';
+		let pattern : any = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,20}$/;
+		if(value.length == 0 || value.match(pattern)){
+			return null;
+		}else{
+			return { 'invalidPassword' : true };
+		}
+	}
+
 	static showError(validatorType : string, validatorValue? : string) : string{
 		let arrMessage : any = {
 			'required' : 'Required',
 			'minlength' : 'Minlength ' + validatorValue['requiredLength'] + ' character',
 			'maxlength' : 'Maxlength ' + validatorValue['requiredLength'] + ' character',
 			'invalidEmail' : 'Email invalid',
+			'invalidPassword' : 'Password invalid at least one upper case, lower case, digit, special character',
 			'pattern' : 'Pattern: ' + validatorValue['requiredPattern'],
 			'mismatchedPasswords' : 'Password not match'
 		}

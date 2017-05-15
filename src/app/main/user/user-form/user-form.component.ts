@@ -18,14 +18,15 @@ declare var moment: any;
 })
 export class UserFormComponent implements OnInit, OnDestroy {
 
-	@ViewChild('avatar') avatar;
+	@ViewChild('Avatar') Avatar;
 	public user: any = {};
 	public myRoles: string[] = [];
 	public allRoles: IMultiSelectOption[] = [];
 	public roles: any[];
 	public subscriptionParams: Subscription;
 	public baseFolder: string = SystemConstants.BASE_API;
-	frmUser: FormGroup;
+	public frmUser: FormGroup;
+	public date: any;
 
 	constructor(
 		private _dataService: DataService,
@@ -37,13 +38,13 @@ export class UserFormComponent implements OnInit, OnDestroy {
 	) { }
 
 	ngOnInit() {
-		this.loadRoles();
 		this.subscriptionParams = this._activatedRoute.params.subscribe((params: Params) => {
+			this.loadRoles();
+			this.createForm();
 			let id: any = params['id'];
 			if (id) {
 				this.getUserById(id);
 			}
-			this.createForm();
 		});
 	}
 
@@ -54,36 +55,35 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
 	createForm() {
 		this.frmUser = this._formBuilder.group({
-			FullName: ['', [
+			FullName: [this.user.FullName, [
 				Validators.required,
+				Validators.minLength(6),
 			]],
-			Email: ['', [
+			Email: [this.user.Email, [
 				MyValidators.emailValidators
 			]],
-			UserName: ['', [
-				Validators.required,
-			]],
-			Address: [''],
-			Password: ['', [
+			UserName: [this.user.UserName, [
 				Validators.required,
 				Validators.minLength(6),
-				Validators.maxLength(20)
+				Validators.maxLength(20),
 			]],
-			ConfirmPassword: ['', [
-				Validators.required,
-				Validators.minLength(6),
-				Validators.maxLength(20)
+			Address: [this.user.Address],
+			Password: [this.user.Password, [
+				MyValidators.passwordValidators
 			]],
-			PhoneNumber: [''],
-			BirthDay: [''],
-			Avatar: [''],
+			ConfirmPassword: [this.user.ConfirmPassword, [
+				MyValidators.passwordValidators
+			]],
+			PhoneNumber: [this.user.PhoneNumber],
+			BirthDay: [this.user.BirthDay],
+			Avatar: [this.user.Avatar, MyValidators.fileValidators],
 			Gender: [''],
 			Roles: ['']
 		}, { validator: MyValidators.matchingPasswords('Password', 'ConfirmPassword') });
 
 		this.frmUser.valueChanges.subscribe(
 			(value: any) => {
-				console.log(value);
+				// console.log(value);
 			}
 		);
 	}
@@ -121,7 +121,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 	onSubmit(valid: boolean) {
 		if (valid) {
 			this.user.Roles = this.myRoles;
-			let fi = this.avatar.nativeElement;
+			let fi = this.Avatar.nativeElement;
 			if (fi.files.length > 0) {
 				this._uploadService.postWithFile('/api/upload/saveImage', null, fi.files).then((imageUrl: string) => {
 					this.user.Avatar = imageUrl;
@@ -156,7 +156,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
 	}
 
 	selectedDate(event) {
-		console.log(event);
 		this.user.BirthDay = moment(new Date(event.end)).format('DD/MM/YYYY');
 	}
 

@@ -12,7 +12,7 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 control-label">Full Name</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input name="FullName" type="text" class="form-control" formControlName="FullName">
+                                        <input [(ngModel)]="user.FullName" type="text" class="form-control" formControlName="FullName">
                                         <control-message [control]="frmUser.controls.FullName"></control-message>
                                     </div>
                                 </div>
@@ -21,7 +21,7 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Email</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input name="Email" type="text" class="form-control" formControlName="Email">
+                                        <input [(ngModel)]="user.Email" type="text" class="form-control" formControlName="Email">
                                         <control-message [control]="frmUser.controls.Email"></control-message>
                                     </div>
                                 </div>
@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 control-label">Username</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input name="UserName" type="text" class="form-control" formControlName="UserName">
+                                        <input [(ngModel)]="user.UserName" type="text" class="form-control" formControlName="UserName">
                                         <control-message [control]="frmUser.controls.UserName"></control-message>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Address</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input name="Address" type="text" class="form-control" formControlName="Address">
+                                        <input [(ngModel)]="user.Address" type="text" class="form-control" formControlName="Address">
                                     </div>
                                 </div>
                             </div>
@@ -51,16 +51,20 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 control-label">Password</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input name="Password" type="text" class="form-control" formControlName="Password">
+                                        <input [(ngModel)]="user.Password" type="password" class="form-control" formControlName="Password">
                                         <control-message [control]="frmUser.controls.Password"></control-message>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-6" *ngIf="!user.Id">
                                 <div class="form-group">
-                                    <label class="text-left col-sm-4 col-md-4  col-md-offset-2 control-label">Phone</label>
+                                    <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Confirm Password</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input name="PhoneNumber" type="text" class="form-control" formControlName="PhoneNumber">
+                                        <input [(ngModel)]="user.ConfirmPassword" type="password" class="form-control" formControlName="ConfirmPassword">
+                                        <control-message [control]="frmUser.controls.ConfirmPassword"></control-message>
+                                        <ng-template [ngIf]="frmUser.controls.ConfirmPassword.errors == null">
+                                            <form-message [form]="frmUser"></form-message>
+                                        </ng-template>
                                     </div>
                                 </div>
                             </div>
@@ -68,12 +72,9 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
-                                    <label class="text-left col-sm-4 col-md-4 control-label">Confirm Password</label>
+                                    <label class="text-left col-sm-4 col-md-4 control-label">Phone Number</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input name="ConfirmPassword" type="text" class="form-control" formControlName="ConfirmPassword">
-                                        <ng-template [ngIf]="frmUser.controls.ConfirmPassword.errors == null">
-                                            <form-message [form]="frmUser"></form-message>
-                                        </ng-template>
+                                        <input [(ngModel)]="user.PhoneNumber" type="text" class="form-control" formControlName="PhoneNumber">
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +82,7 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Birthday</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input name="PhoneNumber" type="text" class="form-control" formControlName="BirthDay">
+                                        <input value="{{ user.BirthDay }}" [(ngModel)]="user.BirthDay" [currentDate]="user.BirthDay" date-picker name="BirthDay" type="text" class="form-control" formControlName="BirthDay">
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +92,7 @@
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 control-label">Avatar</label>
                                     <div class="col-sm-5 col-md-6">
-                                        <input name="PhoneNumber" type="text" class="form-control" formControlName="Avatar">
+                                        <input #Avatar type="file" class="form-control" formControlName="Avatar">
                                         <span class="label label-danger">Only support *.png *.jpg *.jpeg !</span>
                                         <input type="hidden" class="form-control" [(ngModel)]="user.Avatar" [ngModelOptions]="{ standalone : true }" name="avatarUrl">
                                         <img [src]="baseFolder + user.Avatar" width="128" *ngIf="user.Avatar">
@@ -103,10 +104,10 @@
                                     <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Gender</label>
                                     <div class="col-sm-5 col-md-6">
                                         <label class="radio-inline">
-                                            <input (change)="selectGender($event)" name="gender" type="radio" formControlName="Gender" value="True"> Male
+                                            <input [(ngModel)]="user.Gender" (change)="selectGender($event)" type="radio" formControlName="Gender" value="True"> Male
                                         </label>
                                         <label class="radio-inline">
-                                            <input (change)="selectGender($event)" name="gender" type="radio" formControlName="Gender" value="False"> FeMale
+                                            <input [(ngModel)]="user.Gender" (change)="selectGender($event)" type="radio" formControlName="Gender" value="False"> FeMale
                                         </label>
                                     </div>
                                 </div>
