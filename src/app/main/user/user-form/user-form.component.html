@@ -13,6 +13,7 @@
                                     <label class="text-left col-sm-4 col-md-4 control-label">Full Name</label>
                                     <div class="col-sm-5 col-md-6">
                                         <input name="FullName" type="text" class="form-control" formControlName="FullName">
+                                        <control-message [control]="frmUser.controls.FullName"></control-message>
                                     </div>
                                 </div>
                             </div>
@@ -21,6 +22,7 @@
                                     <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Email</label>
                                     <div class="col-sm-5 col-md-6">
                                         <input name="Email" type="text" class="form-control" formControlName="Email">
+                                        <control-message [control]="frmUser.controls.Email"></control-message>
                                     </div>
                                 </div>
                             </div>
@@ -31,6 +33,7 @@
                                     <label class="text-left col-sm-4 col-md-4 control-label">Username</label>
                                     <div class="col-sm-5 col-md-6">
                                         <input name="UserName" type="text" class="form-control" formControlName="UserName">
+                                        <control-message [control]="frmUser.controls.UserName"></control-message>
                                     </div>
                                 </div>
                             </div>
@@ -49,22 +52,28 @@
                                     <label class="text-left col-sm-4 col-md-4 control-label">Password</label>
                                     <div class="col-sm-5 col-md-6">
                                         <input name="Password" type="text" class="form-control" formControlName="Password">
+                                        <control-message [control]="frmUser.controls.Password"></control-message>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
-                                    <label class="text-left col-sm-4 col-md-4 control-label">Phone</label>
+                                    <label class="text-left col-sm-4 col-md-4  col-md-offset-2 control-label">Phone</label>
                                     <div class="col-sm-5 col-md-6">
                                         <input name="PhoneNumber" type="text" class="form-control" formControlName="PhoneNumber">
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label class="text-left col-sm-4 col-md-4 control-label">Confirm Password</label>
                                     <div class="col-sm-5 col-md-6">
                                         <input name="ConfirmPassword" type="text" class="form-control" formControlName="ConfirmPassword">
+                                        <ng-template [ngIf]="frmUser.controls.ConfirmPassword.errors == null">
+                                            <form-message [form]="frmUser"></form-message>
+                                        </ng-template>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +93,7 @@
                                     <div class="col-sm-5 col-md-6">
                                         <input name="PhoneNumber" type="text" class="form-control" formControlName="Avatar">
                                         <span class="label label-danger">Only support *.png *.jpg *.jpeg !</span>
-                                        <input type="hidden" class="form-control" [(ngModel)]="user.Avatar" name="avatarUrl">
+                                        <input type="hidden" class="form-control" [(ngModel)]="user.Avatar" [ngModelOptions]="{ standalone : true }" name="avatarUrl">
                                         <img [src]="baseFolder + user.Avatar" width="128" *ngIf="user.Avatar">
                                     </div>
                                 </div>
@@ -94,10 +103,10 @@
                                     <label class="text-left col-sm-4 col-md-4 col-md-offset-2 control-label">Gender</label>
                                     <div class="col-sm-5 col-md-6">
                                         <label class="radio-inline">
-                                            <input (change)="selectGender($event)" name="gender" type="radio" #gender="ngModel" [ngModel]="user.Gender" value="True" required [checked]="user.Gender=='True'"> Male
+                                            <input (change)="selectGender($event)" name="gender" type="radio" formControlName="Gender" value="True"> Male
                                         </label>
                                         <label class="radio-inline">
-                                            <input (change)="selectGender($event)" name="gender" type="radio" #gender="ngModel" [ngModel]="user.Gender" value="False" required [checked]="user.Gender=='False'"> FeMale
+                                            <input (change)="selectGender($event)" name="gender" type="radio" formControlName="Gender" value="False"> FeMale
                                         </label>
                                     </div>
                                 </div>
@@ -121,7 +130,7 @@
                         <div class="row">
                             <div class="col-xs-12 text-center">
                                 <a [routerLink]="['/main/user/index']" href="#" class="btn btn-default mr-5"><i class="mdi mdi-keyboard-backspace mr-5"></i>Back To User List</a>
-                                <button href="#" class="btn btn-success" [disabled]="!addEditForm.form.valid"><i class="mdi mdi-content-save mr-5"></i>Save</button>
+                                <button href="#" class="btn btn-success" [disabled]="frmUser.invalid"><i class="mdi mdi-content-save mr-5"></i>Save</button>
                             </div>
                         </div>
                     </form>

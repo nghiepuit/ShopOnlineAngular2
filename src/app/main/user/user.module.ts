@@ -13,6 +13,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 // Shared
 import { CoreModule } from './../../core/core.module';
+import { ControlMessageComponent } from './../../core/components/control-message/control-message.component';
+import { FormMessageComponent } from './../../core/components/form-message/form-message.component';
 
 const userRoutes: Routes = [
 	{ path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -38,7 +40,9 @@ const userRoutes: Routes = [
 	],
 	declarations: [
 		UserComponent,
-		UserFormComponent
+		UserFormComponent,
+		ControlMessageComponent,
+		FormMessageComponent
 	]
 })
 export class UserModule { }

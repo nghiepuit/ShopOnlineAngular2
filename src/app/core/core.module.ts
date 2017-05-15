@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { SortPipe } from './pipes/sort.pipe';
 // Directive
 import { DatePickerDirective } from './directives/date-picker.directive';
+// Components
+
 
 @NgModule({
 	declarations: [
@@ -15,6 +17,9 @@ import { DatePickerDirective } from './directives/date-picker.directive';
 	],
 	providers: [],
 	bootstrap: [],
-	exports: [SortPipe, DatePickerDirective]
+	exports: [
+		SortPipe,
+		DatePickerDirective
+	]
 })
 export class CoreModule { }

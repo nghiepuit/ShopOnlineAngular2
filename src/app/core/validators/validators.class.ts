@@ -1,7 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
-import { UserService } from './../services/user.service';
 import { Subscription }   from 'rxjs/Subscription';
-import { IUser } from './../defines/user.interface';
 
 export class MyValidators{
 
