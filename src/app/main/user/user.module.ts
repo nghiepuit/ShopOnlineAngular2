@@ -7,10 +7,10 @@ import { DataService } from './../../core/services/data.service';
 import { UploadService } from './../../core/services/upload.service';
 import { NotificationService } from './../../core/services/notification.service';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 // Third Party
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
-import { Daterangepicker } from 'ng2-daterangepicker';
 // Shared
 import { CoreModule } from './../../core/core.module';
 
@@ -27,8 +27,8 @@ const userRoutes: Routes = [
 		PaginationModule,
 		FormsModule,
 		CoreModule,
-		Daterangepicker,
 		MultiselectDropdownModule,
+		ReactiveFormsModule,
 		RouterModule.forChild(userRoutes)
 	],
 	providers: [

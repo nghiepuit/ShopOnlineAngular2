@@ -5812,15 +5812,15 @@ a:hover {
     margin: 0;
 }
 
-.mt-15{
+.mt-15 {
     margin-top: 15px;
 }
 
-.ml-5{
+.ml-5 {
     margin-left: 5px;
 }
 
-.mr-5{
+.mr-5 {
     margin-left: 5px;
 }
 
@@ -5849,9 +5849,30 @@ hr {
     margin-bottom: 15px;
 }
 
-.daterangepicker td.active, .daterangepicker td.active:hover{
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
     background-color: #26B99A !important;
     border-color: transparent;
 }
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: #fff;
+    opacity: 1;
+}
+
+.datepicker table tr td.active,
+.datepicker table tr td.active:hover,
+.datepicker table tr td.active.disabled,
+.datepicker table tr td.active.disabled:hover {
+    background-color: #26B99A;
+    background-image: linear-gradient(to bottom, #26B99A, #26B99A);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFF;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+}
+
 
 /*My Custom*/

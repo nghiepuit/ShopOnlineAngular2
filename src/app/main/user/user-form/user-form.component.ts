@@ -7,7 +7,9 @@ import { MessageConstants } from './../../../core/common/message.constants';
 import { SystemConstants } from './../../../core/common/system.constants';
 import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-declare var moment : any;
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MyValidators } from './../../../core/validators/validators.class';
+declare var moment: any;
 
 @Component({
 	selector: 'app-user-form',
@@ -21,44 +23,27 @@ export class UserFormComponent implements OnInit, OnDestroy {
 	public myRoles: string[] = [];
 	public allRoles: IMultiSelectOption[] = [];
 	public roles: any[];
-	public dateOptions: any = {
-		locale: {
-			format: 'DD/MM/YYYY',
-			"monthNames": [
-				"January",
-				"February",
-				"March",
-				"April",
-				"May",
-				"June",
-				"July",
-				"August",
-				"September",
-				"October",
-				"November",
-				"December"
-			]
-		},
-		alwaysShowCalendars: false,
-		singleDatePicker: true,
-		showDropdowns: true
-	};
 	public subscriptionParams: Subscription;
-	public baseFolder : string = SystemConstants.BASE_API;
+	public baseFolder: string = SystemConstants.BASE_API;
+	frmUser: FormGroup;
 
 	constructor(
 		private _dataService: DataService,
 		private _router: Router,
 		private _notificationService: NotificationService,
 		private _activatedRoute: ActivatedRoute,
-		private _uploadService: UploadService
+		private _uploadService: UploadService,
+		private _formBuilder: FormBuilder,
 	) { }
 
 	ngOnInit() {
 		this.loadRoles();
 		this.subscriptionParams = this._activatedRoute.params.subscribe((params: Params) => {
 			let id: any = params['id'];
-			this.getUserById(id);
+			if (id) {
+				this.getUserById(id);
+			}
+			this.createForm();
 		});
 	}
 
@@ -67,10 +52,46 @@ export class UserFormComponent implements OnInit, OnDestroy {
 			this.subscriptionParams.unsubscribe();
 	}
 
+	createForm() {
+		this.frmUser = this._formBuilder.group({
+			FullName: ['', [
+				Validators.required,
+			]],
+			Email: ['', [
+				MyValidators.emailValidators
+			]],
+			UserName: ['', [
+				Validators.required,
+			]],
+			Address: [''],
+			Password: ['', [
+				Validators.required,
+				Validators.minLength(6),
+				Validators.maxLength(20)
+			]],
+			ConfirmPassword: ['', [
+				Validators.required,
+				Validators.minLength(6),
+				Validators.maxLength(20)
+			]],
+			PhoneNumber: [''],
+			BirthDay: [''],
+			Avatar: [''],
+			Gender: [''],
+			Roles: ['']
+		}, { validator: MyValidators.matchingPasswords('Password', 'ConfirmPassword') });
+
+		this.frmUser.valueChanges.subscribe(
+			(value: any) => {
+				console.log(value);
+			}
+		);
+	}
+
 	getUserById(id: any) {
 		this._dataService.get('/api/appUser/detail/' + id).subscribe((response: any) => {
 			this.user = response;
-			for(let role of response.Roles){
+			for (let role of response.Roles) {
 				this.myRoles.push(role);
 			}
 			this.user.BirthDay = moment(new Date(this.user.BirthDay)).format('DD/MM/YYYY');
@@ -80,7 +101,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
 	}
 
 	addUser() {
-		console.log(this.user);
 		this._dataService.post('/api/appUser/add', JSON.stringify(this.user)).subscribe((response: any) => {
 			this._router.navigate(['main/user/index']);
 			this._notificationService.printSuccessMessage(MessageConstants.CREATED_OK_MSG);
@@ -89,9 +109,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	editUser(){
+	editUser() {
 		this._dataService.put('/api/appUser/update', JSON.stringify(this.user)).subscribe((response: any) => {
-			console.log(this.user);
 			this._router.navigate(['main/user/index']);
 			this._notificationService.printSuccessMessage(MessageConstants.UPDATED_OK_MSG);
 		}, error => {
@@ -136,7 +155,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 		this.user.Gender = event.target.value;
 	}
 
-	selectedDate(event){
+	selectedDate(event) {
 		console.log(event);
 		this.user.BirthDay = moment(new Date(event.end)).format('DD/MM/YYYY');
 	}
