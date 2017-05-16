@@ -26,7 +26,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 	public subscriptionParams: Subscription;
 	public baseFolder: string = SystemConstants.BASE_API;
 	public frmUser: FormGroup;
-	public date: any;
+	public frmValid: boolean = true;
 
 	constructor(
 		private _dataService: DataService,
@@ -76,7 +76,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 			]],
 			PhoneNumber: [this.user.PhoneNumber],
 			BirthDay: [this.user.BirthDay],
-			Avatar: [this.user.Avatar, MyValidators.fileValidators],
+			Avatar: [this.user.Avatar],
 			Gender: [''],
 			Roles: ['']
 		}, { validator: MyValidators.matchingPasswords('Password', 'ConfirmPassword') });
@@ -120,16 +120,30 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
 	onSubmit(valid: boolean) {
 		if (valid) {
-			this.user.Roles = this.myRoles;
 			let fi = this.Avatar.nativeElement;
-			if (fi.files.length > 0) {
-				this._uploadService.postWithFile('/api/upload/saveImage', null, fi.files).then((imageUrl: string) => {
-					this.user.Avatar = imageUrl;
-				}).then(() => {
-					this.saveData();
-				});
+			//  Validate file extention
+			let arr = fi.files[0] ? fi.files[0].name.split('.') : '';
+			if (arr) {
+				let ext = arr[arr.length - 1];
+				if (ext.indexOf('png') == -1 && ext.indexOf('jpg') == -1 && ext.indexOf('jpeg') == -1) {
+					this.frmValid = false;
+				} else {
+					this.frmValid = true;
+				}
 			} else {
-				this.saveData();
+				this.frmValid = true;
+			}
+			if (this.frmValid) {
+				this.user.Roles = this.myRoles;
+				if (fi.files.length > 0) {
+					this._uploadService.postWithFile('/api/upload/saveImage', null, fi.files).then((imageUrl: string) => {
+						this.user.Avatar = imageUrl;
+					}).then(() => {
+						this.saveData();
+					});
+				} else {
+					this.saveData();
+				}
 			}
 		}
 	}

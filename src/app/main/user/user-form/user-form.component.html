@@ -93,7 +93,7 @@
                                     <label class="text-left col-sm-4 col-md-4 control-label">Avatar</label>
                                     <div class="col-sm-5 col-md-6">
                                         <input #Avatar type="file" class="form-control" formControlName="Avatar">
-                                        <span class="label label-danger">Only support *.png *.jpg *.jpeg !</span>
+                                        <span class="label label-danger" *ngIf="!this.frmValid">Only support *.png *.jpg *.jpeg !</span>
                                         <input type="hidden" class="form-control" [(ngModel)]="user.Avatar" [ngModelOptions]="{ standalone : true }" name="avatarUrl">
                                         <img [src]="baseFolder + user.Avatar" width="128" *ngIf="user.Avatar">
                                     </div>

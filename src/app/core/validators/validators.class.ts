@@ -13,10 +13,6 @@ export class MyValidators{
 		}
 	}
 
-	static fileValidators(formControl : FormControl){
-		console.log(formControl.value);
-	}
-
 	static passwordValidators(formControl : FormControl){
 		let value : string = ( formControl.value != null) ? formControl.value : '';
 		let pattern : any = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,20}$/;
