@@ -75,9 +75,13 @@ export class UserFormComponent implements OnInit, OnDestroy {
 				MyValidators.passwordValidators
 			]],
 			PhoneNumber: [this.user.PhoneNumber],
-			BirthDay: [this.user.BirthDay],
+			BirthDay: [this.user.BirthDay, [
+				Validators.required
+			]],
 			Avatar: [this.user.Avatar],
-			Gender: [''],
+			Gender: ['', [
+				Validators.required
+			]],
 			Roles: ['']
 		}, { validator: MyValidators.matchingPasswords('Password', 'ConfirmPassword') });
 

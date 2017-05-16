@@ -15,6 +15,8 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { CoreModule } from './../../core/core.module';
 import { ControlMessageComponent } from './../../core/components/control-message/control-message.component';
 import { FormMessageComponent } from './../../core/components/form-message/form-message.component';
+// Pipe
+import { FilterPipe } from './filter.pipe';
 
 const userRoutes: Routes = [
 	{ path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -42,7 +44,8 @@ const userRoutes: Routes = [
 		UserComponent,
 		UserFormComponent,
 		ControlMessageComponent,
-		FormMessageComponent
+		FormMessageComponent,
+		FilterPipe
 	]
 })
 export class UserModule { }
