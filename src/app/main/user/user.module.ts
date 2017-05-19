@@ -13,7 +13,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 // Shared
 import { CoreModule } from './../../core/core.module';
-
+// import { ControlMessageComponent } from './../../core/components/control-message/control-message.component';
+// import { FormMessageComponent } from './../../core/components/form-message/form-message.component';
 // Pipe
 import { FilterPipe } from './filter.pipe';
 
@@ -42,7 +43,9 @@ const userRoutes: Routes = [
 	declarations: [
 		UserComponent,
 		UserFormComponent,
-		FilterPipe
+		FilterPipe,
+		// FormMessageComponent,
+		// ControlMessageComponent
 	]
 })
 export class UserModule { }

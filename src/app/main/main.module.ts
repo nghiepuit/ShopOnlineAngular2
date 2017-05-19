@@ -12,8 +12,8 @@ import { UtilityService } from './../core/services/utility.service';
 
 // Components
 import { MainComponent } from './main.component';
-import { ControlMessageComponent } from './../core/components/control-message/control-message.component';
-import { FormMessageComponent } from './../core/components/form-message/form-message.component';
+
+// Shared
 
 // This Routes
 import { mainRoutes } from './main.routes';
@@ -32,9 +32,7 @@ import { mainRoutes } from './main.routes';
 		UtilityService
 	],
 	declarations: [
-		MainComponent,
-		ControlMessageComponent,
-		FormMessageComponent
+		MainComponent
 	]
 })
 export class MainModule { }

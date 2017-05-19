@@ -10,7 +10,8 @@ import { DataService } from './../../core/services/data.service';
 import { UploadService } from './../../core/services/upload.service';
 import { NotificationService } from './../../core/services/notification.service';
 // Shared
-
+// import { ControlMessageComponent } from './../../core/components/control-message/control-message.component';
+// import { FormMessageComponent } from './../../core/components/form-message/form-message.component';
 // Third Party
 import { TreeModule } from 'angular-tree-component';
 
@@ -29,7 +30,9 @@ const funcRoutes: Routes = [
 		RouterModule.forChild(funcRoutes)
 	],
 	declarations: [
-		FunctionComponent
+		FunctionComponent,
+		// ControlMessageComponent,
+		// FormMessageComponent
 	],providers: [
 		DataService,
 		NotificationService,
