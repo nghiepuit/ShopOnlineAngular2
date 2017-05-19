@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 
+// Lazy loading routing module
 export const mainRoutes: Routes = [
 	{
 		path: '', component: MainComponent, children: [
@@ -10,7 +11,9 @@ export const mainRoutes: Routes = [
 			// localhost:4200/main/user
 			{ path: 'user', loadChildren: './user/user.module#UserModule' },
 			// localhost:4200/main/user
-			{ path: 'role', loadChildren: './role/role.module#RoleModule' }
+			{ path: 'role', loadChildren: './role/role.module#RoleModule' },
+			// localhost:4200/main/func
+			{ path: 'func', loadChildren: './function/function.module#FunctionModule' }
 		]
 	}
 ]

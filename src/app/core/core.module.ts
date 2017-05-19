@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { SortPipe } from './pipes/sort.pipe';
 // Directive
 import { DatePickerDirective } from './directives/date-picker.directive';
-// Components
 
 
 @NgModule({

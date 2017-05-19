@@ -336,6 +336,7 @@
                                     <div class="form-group form-group-photo">
                                         <label class="control-label text-left col-xs-12 col-sm-5">Avatar</label>
                                         <div class="col-xs-12 col-sm-7">
+<<<<<<< HEAD
                                             <input type="hidden" class="form-control" [(ngModel)]="user.Avatar" [ngModelOptions]="{ standalone : true }" name="avatarUrl">
                                             <img class="img-thumbnail" [src]="baseFolder + user.Avatar" width="128" *ngIf="user.Avatar">
                                             <span class="label label-danger" *ngIf="!this.frmValid">Only support *.png *.jpg *.jpeg !</span>
@@ -344,6 +345,10 @@
                                                 <span>Browse...</span>
                                             </span>
                                             <input id="avatarFile" #Avatar type="file" class="form-control" formControlName="Avatar">
+=======
+                                            <img src="assets/images/1.png" class="img-thumbnail" alt="">
+                                            <button class="btn btn-default"><i class="mdi mdi-file-image mr-5"></i><span>Browse...</span></button>
+>>>>>>> dcf8b70c3b517b4877a9a9c991d1df340ba90187
                                         </div>
                                     </div>
                                 </div>
