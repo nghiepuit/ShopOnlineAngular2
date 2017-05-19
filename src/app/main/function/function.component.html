@@ -1,3 +1,54 @@
-<p>
-  function works!
-</p>
+<div class="page-title">
+    <h2 class="sub-header font-condensed">Functions</h2>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button type="button" class="btn btn-success" [routerLink]="['/main/user/form']"><i class="mdi mdi-plus mr-5"></i>New User</button>
+                    </li>
+                    <li>
+                        <div class="dropdown dropdown-export">
+                            <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-success a-btn-dropdown mr-5" href="javascript:void(0)"><i class="mdi mdi-export mr-5"></i>
+                                Export <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">Order</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a tabindex="-1" href="#"><i class="mdi mdi-file-pdf mr-5"></i>PDF</a></li>
+                                        <li><a href="#"><i class="mdi mdi-file-excel mr-5"></i>Excel</a></li>
+                                        <li><a href="#"><i class="mdi mdi-file-chart mr-5"></i>Report</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">Invoice</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a tabindex="-1" href="#"><i class="mdi mdi-file-pdf mr-5"></i>PDF</a></li>
+                                        <li><a href="#"><i class="mdi mdi-file-excel mr-5"></i>Excel</a></li>
+                                        <li><a href="#"><i class="mdi mdi-file-chart mr-5"></i>Report</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="btn btn-success" type="button" data-toggle="collapse" href="#block-advance-search" aria-expanded="false" aria-controls="block-advance-search"><i class="mdi mdi-magnify mr-5"></i>Advanced Search</button>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <tree-root #treeFunction [nodes]="_functionHierachy">
+                    <ng-template #treeNodeTemplate let-node let-index="index">
+                        <span>{{ node.data.Name }}</span>
+                        <button (click)="go($event)">Custom Action</button>
+                    </ng-template>
+                </tree-root>
+            </div>
+        </div>
+    </div>
+</div>
