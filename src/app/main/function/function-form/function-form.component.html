@@ -1,0 +1,103 @@
+<div class="title-wrapper">
+    <h2 class="sub-header font-condensed">Add Function</h2>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="block-advance-search" id="block-advance-search">
+                    <div class="well">
+                        <form class="form-horizontal" novalidate autocomplete="false" [formGroup]="frmFunction" (ngSubmit)="onSubmit(frmFunction.valid)" *ngIf="function">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-left col-xs-12 col-sm-5">ID</label>
+                                        <div class="col-xs-12 col-sm-7">
+                                            <input [(ngModel)]="function.ID" type="text" class="form-control" formControlName="ID" [readonly]="!isAdding">
+                                            <control-message [control]="frmFunction.controls.ID"></control-message>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-left col-xs-12 col-sm-5">Name</label>
+                                        <div class="col-xs-12 col-sm-7">
+                                            <input [(ngModel)]="function.Name" type="text" class="form-control" formControlName="Name">
+                                            <control-message [control]="frmFunction.controls.Name"></control-message>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-left col-xs-12 col-sm-5">URL</label>
+                                        <div class="col-xs-12 col-sm-7">
+                                            <input [(ngModel)]="function.URL" type="text" class="form-control" formControlName="URL">
+                                            <control-message [control]="frmFunction.controls.URL"></control-message>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-left col-xs-12 col-sm-5">DisplayOrder</label>
+                                        <div class="col-xs-12 col-sm-7">
+                                            <input [(ngModel)]="function.DisplayOrder" type="number" class="form-control" formControlName="DisplayOrder">
+                                            <control-message [control]="frmFunction.controls.DisplayOrder"></control-message>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-left col-xs-12 col-sm-5">Parent Function</label>
+                                        <div class="col-xs-12 col-sm-7">
+                                            <select class="form-control" [(ngModel)]="function.ParentId" formControlName="ParentId">
+                                                <option>-- Choose your option --</option>
+                                                <option *ngFor="let x of _functions" [value]="x.ID">{{ x.Name }}</option>
+                                            </select>
+                                            <input type="hidden" [ngModelOptions]="{standalone: true}" [(ngModel)]="function.ParentId" name="ParentId" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-left col-xs-12 col-sm-5">IconCss</label>
+                                        <div class="col-xs-12 col-sm-7">
+                                            <input [(ngModel)]="function.IconCss" type="text" class="form-control" formControlName="IconCss">
+                                            <control-message [control]="frmFunction.controls.IconCss"></control-message>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-left col-xs-12 col-sm-5">Status</label>
+                                        <div class="col-xs-12 col-sm-7">
+                                            <label>
+                                                <input [(ngModel)]="function.Status" type="checkbox" formControlName="Status">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <hr class="hr-inside">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <a [routerLink]="['/main/func/index']" type="submit" class="btn btn-default mr-5"><i class="mdi mdi-arrow-left mr-5"></i>Back To Function List</a>
+                                    <button type="submit" class="btn btn-success" [disabled]="frmFunction.invalid"><i class="mdi mdi-content-save mr-5"></i>Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

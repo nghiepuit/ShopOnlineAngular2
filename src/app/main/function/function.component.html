@@ -12,35 +12,7 @@
             <div class="x_title">
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
-                        <button type="button" class="btn btn-success" [routerLink]="['/main/user/form']"><i class="mdi mdi-plus mr-5"></i>New User</button>
-                    </li>
-                    <li>
-                        <div class="dropdown dropdown-export">
-                            <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-success a-btn-dropdown mr-5" href="javascript:void(0)"><i class="mdi mdi-export mr-5"></i>
-                                Export <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                                <li class="dropdown-submenu">
-                                    <a tabindex="-1" href="#">Order</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a tabindex="-1" href="#"><i class="mdi mdi-file-pdf mr-5"></i>PDF</a></li>
-                                        <li><a href="#"><i class="mdi mdi-file-excel mr-5"></i>Excel</a></li>
-                                        <li><a href="#"><i class="mdi mdi-file-chart mr-5"></i>Report</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-submenu">
-                                    <a tabindex="-1" href="#">Invoice</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a tabindex="-1" href="#"><i class="mdi mdi-file-pdf mr-5"></i>PDF</a></li>
-                                        <li><a href="#"><i class="mdi mdi-file-excel mr-5"></i>Excel</a></li>
-                                        <li><a href="#"><i class="mdi mdi-file-chart mr-5"></i>Report</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <button class="btn btn-success" type="button" data-toggle="collapse" href="#block-advance-search" aria-expanded="false" aria-controls="block-advance-search"><i class="mdi mdi-magnify mr-5"></i>Advanced Search</button>
+                        <button type="button" class="btn btn-success" [routerLink]="['/main/func/form']"><i class="mdi mdi-plus mr-5"></i>New Function</button>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
@@ -49,7 +21,12 @@
                 <tree-root #treeFunction [nodes]="_functionHierachy">
                     <ng-template #treeNodeTemplate let-node let-index="index">
                         <span>{{ node.data.Name }}</span>
-                        <button (click)="go($event)">Custom Action</button>
+                        <a (click)="edit(node.data.ID)" class="btn btn-icon">
+                            <i class="mdi mdi-pencil"></i>
+                        </a>
+                        <a (click)="delete(node.data.ID)" class="btn btn-icon">
+                            <i class="mdi mdi-delete"></i>
+                        </a>
                     </ng-template>
                 </tree-root>
             </div>

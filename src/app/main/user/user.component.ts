@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
 		this._dataService.delete('/api/appUser/delete', 'id', id).subscribe((response: any) => {
 			this._notificationService.printSuccessMessage(MessageConstants.DELETED_OK_MSG);
 			this.loadData();
-		});
+		}, error => this._dataService.handleError(error));
 	}
 
 	sort(key: string) {
