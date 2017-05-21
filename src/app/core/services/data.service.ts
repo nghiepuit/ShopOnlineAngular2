@@ -54,12 +54,13 @@ export class DataService {
 			localStorage.removeItem(SystemConstants.CURRENT_USER);
 			this._notificationService.printErrorMessage(MessageConstants.LOGIN_AGAIN_MSG);
 			this._utilityService.navigateToLogin();
+		}else if(error.status == 409){
+			return Observable.throw(error);
 		}
 		else {
 			let errMsg = (error.message) ? error.message :
 				error.status ? `${error.status} - ${error.statusText}` : 'Lỗi hệ thống';
 			this._notificationService.printErrorMessage(errMsg);
-
 			return Observable.throw(errMsg);
 		}
 

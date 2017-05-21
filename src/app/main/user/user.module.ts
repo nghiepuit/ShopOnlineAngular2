@@ -13,7 +13,6 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 // Shared
 import { CoreModule } from './../../core/core.module';
-
 // Pipe
 import { FilterPipe } from './pipes/filter.pipe';
 

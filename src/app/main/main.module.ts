@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
 import { FunctionModule } from './function/function.module';
+import { ProductCategoryModule } from './product-category/product-category.module';
 
 // Service
 import { NotificationService } from './../core/services/notification.service';
@@ -24,6 +25,7 @@ import { mainRoutes } from './main.routes';
 		UserModule,
 		RoleModule,
 		FunctionModule,
+		ProductCategoryModule,
 		RouterModule.forChild(mainRoutes)
 	],
 	providers: [

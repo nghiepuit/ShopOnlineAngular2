@@ -40,10 +40,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		this.subscriptionParams = this._activatedRoute.params.subscribe((params: Params) => {
 			this.loadRoles();
-			this.createForm();
 			let id: any = params['id'];
 			if (id) {
 				this.getUserById(id);
+				this.createFormEdit();
+			} else {
+				this.createFormAdd();
 			}
 		});
 	}
@@ -53,7 +55,52 @@ export class UserFormComponent implements OnInit, OnDestroy {
 			this.subscriptionParams.unsubscribe();
 	}
 
-	createForm() {
+	createFormAdd() {
+		this.frmUser = this._formBuilder.group({
+			FullName: [this.user.FullName, [
+				Validators.required,
+				Validators.minLength(6),
+			]],
+			Email: [this.user.Email, [
+				MyValidators.emailValidators
+			]],
+			UserName: [this.user.UserName, [
+				Validators.required,
+				Validators.minLength(6),
+				Validators.maxLength(20),
+			]],
+			Address: [this.user.Address],
+			Password: [this.user.Password, [
+				Validators.required,
+				Validators.minLength(6),
+				Validators.maxLength(20),
+				MyValidators.passwordValidators
+			]],
+			ConfirmPassword: [this.user.ConfirmPassword, [
+				Validators.required,
+				Validators.minLength(6),
+				Validators.maxLength(20),
+				MyValidators.passwordValidators
+			]],
+			PhoneNumber: [this.user.PhoneNumber],
+			BirthDay: [this.user.BirthDay, [
+				Validators.required
+			]],
+			Avatar: [this.user.Avatar],
+			Gender: ['', [
+				Validators.required
+			]],
+			Roles: ['']
+		}, { validator: MyValidators.matchingPasswords('Password', 'ConfirmPassword') });
+
+		this.frmUser.valueChanges.subscribe(
+			(value: any) => {
+				// console.log(value);
+			}
+		);
+	}
+
+	createFormEdit() {
 		this.frmUser = this._formBuilder.group({
 			FullName: [this.user.FullName, [
 				Validators.required,
@@ -109,6 +156,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
 			this._router.navigate(['main/user/index']);
 			this._notificationService.printSuccessMessage(MessageConstants.CREATED_OK_MSG);
 		}, error => {
+			if (error.status == 409) {
+				this._notificationService.printErrorMessage(MessageConstants.USERNAME_EMAIL_EXISTING);
+			}
 			this._dataService.handleError(error);
 		});
 	}

@@ -36,7 +36,7 @@ const funcRoutes: Routes = [
 	declarations: [
 		FunctionComponent,
 		FunctionFormComponent
-	],providers: [
+	], providers: [
 		DataService,
 		NotificationService,
 		UploadService
