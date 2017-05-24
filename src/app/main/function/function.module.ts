@@ -15,6 +15,7 @@ import { CoreModule } from './../../core/core.module';
 
 // Third Party
 import { TreeModule } from 'angular-tree-component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 const funcRoutes: Routes = [
 	{ path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const funcRoutes: Routes = [
 		RouterModule,
 		TreeModule,
 		CoreModule,
+		ModalModule.forRoot(),
 		RouterModule.forChild(funcRoutes)
 	],
 	declarations: [

@@ -12,24 +12,24 @@ import { UtilityService } from './../core/services/utility.service';
 })
 export class LoginComponent implements OnInit {
 
-	loading : boolean = false;
-	model : any = {}
-	returnUrl : string;
+	loading: boolean = false;
+	model: any = {}
+	returnUrl: string;
 
 	constructor(
-		private _authService : AuthService,
-		private _notificationService : NotificationService,
-		private _utilityService : UtilityService
+		private _authService: AuthService,
+		private _notificationService: NotificationService,
+		private _utilityService: UtilityService
 	) { }
 
 	ngOnInit() {
 	}
 
-	login(){
+	login() {
 		this.loading = true;
-		this._authService.login(this.model.username,this.model.password).subscribe(data => {
+		this._authService.login(this.model.username, this.model.password).subscribe(data => {
 			this._utilityService.navigate(UrlConstants.HOME);
-			}, error => {
+		}, error => {
 			this._notificationService.printErrorMessage(MessageConstants.SYSTEM_ERROR_MSG);
 			this.loading = false;
 		});

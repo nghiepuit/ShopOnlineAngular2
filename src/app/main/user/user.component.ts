@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './../../core/services/data.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { AuthService } from '../../core/services/auth.service';
+import { UtilityService } from '../../core/services/utility.service';
 import { MessageConstants } from '../../core/common/message.constants';
 import { SystemConstants } from '../../core/common/system.constants';
 import { Router } from '@angular/router';
@@ -25,8 +27,14 @@ export class UserComponent implements OnInit {
 	constructor(
 		private _dataService: DataService,
 		private _notificationService: NotificationService,
-		private _router : Router
-	) { }
+		private _router : Router,
+		private _authService : AuthService,
+		private _utilityService : UtilityService
+	) { 
+		if(!_authService.checkAccess('USER')){
+			_utilityService.navigateToLogin();
+		}
+	}
 
 	ngOnInit() {
 		this.loadData();

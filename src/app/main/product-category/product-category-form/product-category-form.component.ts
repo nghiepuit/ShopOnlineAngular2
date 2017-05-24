@@ -63,7 +63,7 @@ export class ProductCategoryFormComponent implements OnInit, OnDestroy {
 			DisplayOrder: [this.pc.DisplayOrder, [
 				Validators.required
 			]],
-			Avatar: [this.pc.Avatar],
+			Image: [this.pc.Image],
 			MetaKeyword: [this.pc.MetaKeyword],
 			MetaDescription: [this.pc.MetaDescription],
 			Status: [this.pc.Status],

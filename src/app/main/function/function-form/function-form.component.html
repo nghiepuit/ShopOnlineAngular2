@@ -54,7 +54,7 @@
                                         <label class="control-label text-left col-xs-12 col-sm-5">Parent Function</label>
                                         <div class="col-xs-12 col-sm-7">
                                             <select class="form-control" [(ngModel)]="function.ParentId" formControlName="ParentId">
-                                                <option>-- Choose your option --</option>
+                                                <option value="-1">-- Choose your option --</option>
                                                 <option *ngFor="let x of _functions" [value]="x.ID">{{ x.Name }}</option>
                                             </select>
                                             <input type="hidden" [ngModelOptions]="{standalone: true}" [(ngModel)]="function.ParentId" name="ParentId" class="form-control">

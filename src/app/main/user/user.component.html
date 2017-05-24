@@ -18,7 +18,14 @@
             <div class="x_title">
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
-                        <button type="button" class="btn btn-success" [routerLink]="['/main/user/form']"><i class="mdi mdi-plus mr-5"></i>New User</button>
+                        <button 
+                            type="button" 
+                            class="btn btn-success" 
+                            [routerLink]="['/main/user/form']"
+                            *ngIf="_authService.hasPermission('USER','create')"
+                            >
+                            <i class="mdi mdi-plus mr-5"></i>New User
+                        </button>
                     </li>
                     <li>
                         <div class="dropdown dropdown-export">
@@ -199,10 +206,22 @@
                             <td>{{ user.BirthDay | date : 'dd/MM/yyyy' }}</td>
                             <td>{{ user.PhoneNumber }}</td>
                             <td width="10%" class="text-center">
-                                <a class="btn btn-icon mr-5" role="button" (click)="editUser(user.Id)">
+                                <a 
+                                    class="btn btn-icon mr-5" 
+                                    role="button" 
+                                    (click)="editUser(user.Id)"
+                                    *ngIf="_authService.hasPermission('USER','update')"
+                                    >
                                     <i class="mdi mdi-pencil"></i>
                                 </a>
-                                <a class="btn btn-icon" role="button" (click)="deleteUser(user.Id)"><i class="mdi mdi-delete"></i></a>
+                                <a 
+                                    class="btn btn-icon" 
+                                    role="button" 
+                                    (click)="deleteUser(user.Id)"
+                                    *ngIf="_authService.hasPermission('USER','update')"
+                                    >
+                                    <i class="mdi mdi-delete"></i>
+                                </a>
                             </td>
                         </tr>
                     </tbody>

@@ -1,0 +1,20 @@
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        <h3>&nbsp;</h3>
+        <ul class="nav side-menu">
+            <li><a><i class="fa fa-home"></i> Trang chủ</a>
+            </li>
+            <li *ngFor="let item of functions">
+                <a><i class="fa {{ item.IconCss }}"></i>
+                     {{ item.Name }}
+                    <span *ngIf="item.ChildFunctions" class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                    <li *ngFor="let subItem of item.ChildFunctions" routerLinkActive="active">
+                        <a routerLink="{{ subItem.URL }}">{{ subItem.Name }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

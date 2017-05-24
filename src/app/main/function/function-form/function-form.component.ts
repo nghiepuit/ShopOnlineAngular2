@@ -99,6 +99,9 @@ export class FunctionFormComponent implements OnInit, OnDestroy {
 
 	onSubmit(valid: boolean) {
 		if (valid) {
+			if(this.function.ParentId == -1){
+				this.function.ParentId = null;
+			}
 			if (this.isAdding) {
 				this.addFunction();
 			} else {

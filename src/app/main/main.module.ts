@@ -18,6 +18,8 @@ import { MainComponent } from './main.component';
 
 // This Routes
 import { mainRoutes } from './main.routes';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
 	imports: [
@@ -34,7 +36,9 @@ import { mainRoutes } from './main.routes';
 		UtilityService
 	],
 	declarations: [
-		MainComponent
+		MainComponent,
+		SidebarComponent,
+		HeaderComponent
 	]
 })
 export class MainModule { }
