@@ -4,6 +4,7 @@ import { UrlConstants } from './../core/common/url.constants';
 import { SystemConstants } from './../core/common/system.constants';
 import { UtilityService } from './../core/services/utility.service';
 import { LoggedInUser } from './../core/domain/loggedin.user';
+import { GlobalService } from './../core/services/global.service';
 
 @Component({
 	selector: 'app-main',
@@ -13,11 +14,12 @@ import { LoggedInUser } from './../core/domain/loggedin.user';
 export class MainComponent implements OnInit {
 
 	public user: LoggedInUser;
-	public baseFolder : string = SystemConstants.BASE_API;
+	public baseFolder: string = SystemConstants.BASE_API;
 
 	constructor(
 		private _authService: AuthService,
-		private _utilityService: UtilityService
+		private _utilityService: UtilityService,
+		private _globalService: GlobalService
 	) { }
 
 	ngOnInit() {

@@ -6,6 +6,7 @@ import { UtilityService } from '../../core/services/utility.service';
 import { MessageConstants } from '../../core/common/message.constants';
 import { SystemConstants } from '../../core/common/system.constants';
 import { Router } from '@angular/router';
+import { GlobalService } from './../../core/services/global.service';
 
 @Component({
 	selector: 'app-user',
@@ -29,7 +30,8 @@ export class UserComponent implements OnInit {
 		private _notificationService: NotificationService,
 		private _router : Router,
 		private _authService : AuthService,
-		private _utilityService : UtilityService
+		private _utilityService : UtilityService,
+		private _globalService : GlobalService
 	) { 
 		if(!_authService.checkAccess('USER')){
 			_utilityService.navigateToLogin();
@@ -37,6 +39,7 @@ export class UserComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this._globalService.isLoading = true;
 		this.loadData();
 	}
 
@@ -47,6 +50,7 @@ export class UserComponent implements OnInit {
 				this.pageIndex = response.PageIndex;
 				this.pageSize = response.PageSize;
 				this.totalRow = response.TotalRows;
+				this._globalService.isLoading = false;
 			});
 	}
 

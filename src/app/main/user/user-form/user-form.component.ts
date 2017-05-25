@@ -10,6 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyValidators } from './../../../core/validators/validators.class';
 declare var moment: any;
+import { GlobalService } from './../../../core/services/global.service';
 
 @Component({
 	selector: 'app-user-form',
@@ -35,13 +36,16 @@ export class UserFormComponent implements OnInit, OnDestroy {
 		private _activatedRoute: ActivatedRoute,
 		private _uploadService: UploadService,
 		private _formBuilder: FormBuilder,
+		private _globalService : GlobalService
 	) { }
 
 	ngOnInit() {
+		this._globalService.isLoading = true;
 		this.subscriptionParams = this._activatedRoute.params.subscribe((params: Params) => {
 			this.loadRoles();
 			let id: any = params['id'];
 			if (id) {
+				this._globalService.isLoading = true;
 				this.getUserById(id);
 				this.createFormEdit();
 			} else {
@@ -146,6 +150,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 				this.myRoles.push(role);
 			}
 			this.user.BirthDay = moment(new Date(this.user.BirthDay)).format('DD/MM/YYYY');
+			this._globalService.isLoading = false;
 		}, error => {
 			this._dataService.handleError(error);
 		});
@@ -216,6 +221,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 			for (let role of response) {
 				this.allRoles.push({ id: role.Name, name: role.Description });
 			}
+			this._globalService.isLoading = false;
 		}, error => this._dataService.handleError(error));
 	}
 

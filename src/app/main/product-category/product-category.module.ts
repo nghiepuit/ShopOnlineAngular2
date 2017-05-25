@@ -15,6 +15,7 @@ import { NotificationService } from './../../core/services/notification.service'
 import { CoreModule } from './../../core/core.module';
 // Third Party
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TreeModule } from 'angular-tree-component';
 
 const pcRoutes: Routes = [
 	{ path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const pcRoutes: Routes = [
 		RouterModule,
 		CoreModule,
 		PaginationModule,
+		TreeModule,
 		RouterModule.forChild(pcRoutes)
 	],
 	declarations: [

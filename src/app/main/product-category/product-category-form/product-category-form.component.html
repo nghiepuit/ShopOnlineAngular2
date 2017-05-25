@@ -35,8 +35,12 @@
                                     <div class="form-group">
                                         <label class="control-label text-left col-xs-12 col-sm-4">Parent Category</label>
                                         <div class="col-xs-12 col-sm-8">
-                                            <input [(ngModel)]="pc.ParentID" type="text" class="form-control" formControlName="ParentID">
-                                            <control-message [control]="frmPC.controls.ParentID"></control-message>
+                                            <select [(ngModel)]="pc.ParentID" class="form-control" formControlName="ParentID">
+                                                <option value="">--Select your option--</option>
+                                                <option *ngFor="let item of _productCategories" value="{{ item.ID }}">
+                                                    {{ item.Name }}
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +61,9 @@
                                     <div class="form-group">
                                         <label class="control-label text-left col-xs-12 col-sm-4">Image</label>
                                         <div class="col-xs-12 col-sm-8">
-                                            <input [(ngModel)]="pc.Image" class="form-control" type="text" formControlName="Image">
+                                            <img class="img-thumbnail" [src]="baseFolder + pc.Image" width="128" *ngIf="pc.Image">
+                                            <input [(ngModel)]="pc.Image" #Image type="file" class="form-control" formControlName="Image">
+                                            <span class="label label-danger" *ngIf="!this.frmValid">Only support *.png *.jpg *.jpeg !</span>
                                         </div>
                                     </div>
                                 </div>

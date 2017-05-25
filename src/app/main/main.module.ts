@@ -10,6 +10,7 @@ import { ProductCategoryModule } from './product-category/product-category.modul
 import { NotificationService } from './../core/services/notification.service';
 import { AuthService } from './../core/services/auth.service';
 import { UtilityService } from './../core/services/utility.service';
+import { GlobalService } from './../core/services/global.service';
 
 // Components
 import { MainComponent } from './main.component';
@@ -33,7 +34,8 @@ import { HeaderComponent } from './shared/header/header.component';
 	providers: [
 		NotificationService,
 		AuthService,
-		UtilityService
+		UtilityService,
+		GlobalService
 	],
 	declarations: [
 		MainComponent,
