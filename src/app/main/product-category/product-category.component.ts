@@ -48,4 +48,8 @@ export class ProductCategoryComponent implements OnInit {
 		}, error => this._dataService.handleError(error));
 	}
 
+	edit(id : any){
+		this._router.navigate(['main/product-category/form', id]);
+	}
+
 }

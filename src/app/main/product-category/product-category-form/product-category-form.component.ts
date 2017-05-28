@@ -23,6 +23,7 @@ export class ProductCategoryFormComponent implements OnInit, OnDestroy {
 	public frmPC: FormGroup;
 	public frmValid: boolean = true;
 	public _productCategories: any[];
+	public baseFolder: string = SystemConstants.BASE_API;
 
 	constructor(
 		private _dataService: DataService,
@@ -51,7 +52,7 @@ export class ProductCategoryFormComponent implements OnInit, OnDestroy {
 	}
 
 	getListDropdown() {
-		this._dataService.get('/api/productCategory/getallhierachy')
+		this._dataService.get('/api/productcategory/getallhierachy')
 			.subscribe((response: any) => {
 				this._productCategories = response;
 			}, error => this._dataService.handleError(error));
@@ -71,9 +72,7 @@ export class ProductCategoryFormComponent implements OnInit, OnDestroy {
 			]],
 			Description: [this.pc.Description],
 			ParentID: [this.pc.ParentID],
-			DisplayOrder: [this.pc.DisplayOrder, [
-				Validators.required
-			]],
+			DisplayOrder: [this.pc.DisplayOrder],
 			Image: [this.pc.Image],
 			MetaKeyword: [this.pc.MetaKeyword],
 			MetaDescription: [this.pc.MetaDescription],
@@ -89,7 +88,11 @@ export class ProductCategoryFormComponent implements OnInit, OnDestroy {
 	}
 
 	getPCById(id: any) {
-
+		this._dataService.get('/api/productcategory/getbyid/' + id).subscribe((response: any) => {
+			this.pc = response;
+		}, error => {
+			this._dataService.handleError(error);
+		});
 	}
 
 	onSubmit(valid: boolean) {
@@ -132,7 +135,7 @@ export class ProductCategoryFormComponent implements OnInit, OnDestroy {
 	}
 
 	addPC() {
-		this._dataService.post('/api/productCategory/create', JSON.stringify(this.pc)).subscribe((response: any) => {
+		this._dataService.post('/api/productcategory/create', JSON.stringify(this.pc)).subscribe((response: any) => {
 			this._router.navigate(['main/product-category/index']);
 			this._notificationService.printSuccessMessage(MessageConstants.CREATED_OK_MSG);
 		}, error => {
@@ -144,7 +147,12 @@ export class ProductCategoryFormComponent implements OnInit, OnDestroy {
 	}
 
 	editPC() {
-
+		this._dataService.put('/api/productcategory/update', JSON.stringify(this.pc)).subscribe((response: any) => {
+			this._router.navigate(['main/product-category/index']);
+			this._notificationService.printSuccessMessage(MessageConstants.UPDATED_OK_MSG);
+		}, error => {
+			this._dataService.handleError(error);
+		});
 	}
 
 }
