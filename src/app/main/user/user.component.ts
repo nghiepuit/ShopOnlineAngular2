@@ -26,12 +26,12 @@ export class UserComponent implements OnInit {
 	public baseFolder : string = SystemConstants.BASE_API;
 
 	constructor(
-		private _dataService: DataService,
-		private _notificationService: NotificationService,
-		private _router : Router,
-		private _authService : AuthService,
-		private _utilityService : UtilityService,
-		private _globalService : GlobalService
+		public _dataService: DataService,
+		public _notificationService: NotificationService,
+		public _router : Router,
+		public _authService : AuthService,
+		public _utilityService : UtilityService,
+		public _globalService : GlobalService
 	) { 
 		if(!_authService.checkAccess('USER')){
 			_utilityService.navigateToLogin();

@@ -54,7 +54,7 @@ export class DataService {
 			localStorage.removeItem(SystemConstants.CURRENT_USER);
 			this._notificationService.printErrorMessage(MessageConstants.LOGIN_AGAIN_MSG);
 			this._utilityService.navigateToLogin();
-		}else if(error.status == 409){
+		} else if (error.status == 409) {
 			return Observable.throw(error);
 		}
 		else {

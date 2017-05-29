@@ -17,9 +17,9 @@ export class MainComponent implements OnInit {
 	public baseFolder: string = SystemConstants.BASE_API;
 
 	constructor(
-		private _authService: AuthService,
-		private _utilityService: UtilityService,
-		private _globalService: GlobalService
+		public _authService: AuthService,
+		public _utilityService: UtilityService,
+		public _globalService: GlobalService
 	) { }
 
 	ngOnInit() {

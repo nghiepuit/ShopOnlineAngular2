@@ -180,25 +180,25 @@
                             <td>
                             </td>
                             <td>
-                                <input type="text" class="form-control" [(ngModel)]="UserName">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" [(ngModel)]="FullName">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" [(ngModel)]="Email">
+                                <input type="text" class="form-control">
                             </td>
                             <td>
                                 <input type="text" class="form-control">
                             </td>
                             <td>
-                                <input type="text" class="form-control" [(ngModel)]="PhoneNumber">
+                                <input type="text" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control">
                             </td>
                             <td class="td-nowrap text-center">
                                 <a class="btn btn-icon" role="button" data-toggle="tooltip" title="Clear"><i class="mdi mdi-filter-remove"></i></a>
                             </td>
                         </tr>
-                        <tr *ngFor="let user of users | sort :key :value | filter : UserName :FullName :Email :PhoneNumber">
+                        <tr *ngFor="let user of users | sort :key :value">
                             <td class="text-center"><img class="img-responsive" width="128" [src]="baseFolder + user.Avatar" alt="{{ user.UserName }}"></td>
                             <td>{{ user.UserName }}</td>
                             <td>{{ user.FullName }}</td>
