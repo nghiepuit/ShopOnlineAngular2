@@ -7,13 +7,15 @@ import { DatePickerDirective } from './directives/date-picker.directive';
 // Component
 import { ControlMessageComponent } from './components/control-message/control-message.component';
 import { FormMessageComponent } from './components/form-message/form-message.component';
+import { TinyMceComponent } from './components/tiny-mce/tiny-mce.component';
 
 @NgModule({
 	declarations: [
 		SortPipe,
 		DatePickerDirective,
 		ControlMessageComponent,
-		FormMessageComponent
+		FormMessageComponent,
+		TinyMceComponent
 	],
 	imports: [
 		CommonModule
@@ -25,7 +27,8 @@ import { FormMessageComponent } from './components/form-message/form-message.com
 		DatePickerDirective,
 		DatePickerDirective,
 		ControlMessageComponent,
-		FormMessageComponent
+		FormMessageComponent,
+		TinyMceComponent
 	]
 })
 export class CoreModule { }

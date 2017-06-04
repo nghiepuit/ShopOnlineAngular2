@@ -1,3 +1,151 @@
-<p>
-  product-form works!
-</p>
+<div class="title-wrapper">
+    <h2 class="sub-header font-condensed">{{ product.ID ? 'Edit Product' : 'Add Product' }}</h2>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="block-advance-search" id="block-advance-search">
+                    <div class="well">
+                        <form class="form-horizontal" novalidate autocomplete="false" [formGroup]="frmProduct" (ngSubmit)="onSubmit(frmProduct.valid)" *ngIf="product">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#basic">Basic information</a></li>
+                                <li><a data-toggle="tab" href="#more-info">More information</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="basic" class="tab-pane fade in active">
+                                    <h3>Basic information</h3>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" formControlName="Name" [(ngModel)]="product.Name" />
+                                            <control-message [control]="frmProduct.controls.Name"></control-message>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Alias</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" formControlName="Alias" [(ngModel)]="product.Alias" />
+                                            <control-message [control]="frmProduct.controls.Alias"></control-message>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select class="form-control" formControlName="CategoryID" [(ngModel)]="product.CategoryID">
+                                                <option value="">--Choose your category--</option>
+                                                <option *ngFor="let x of productCategories" [value]="x.ID">{{x.Name}}</option>
+                                            </select>
+                                            <control-message [control]="frmProduct.controls.CategoryID"></control-message>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Image</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input #ThumbnailImage type="file" class="form-control" formControlName="ThumbnailImage">
+                                            <p class="help-block label label-danger" *ngIf="!this.frmValid"> only support *.png, *.jpg, *.jpeg </p>
+                                            <input type="hidden" [(ngModel)]="product.ThumbnailImage" [ngModelOptions]="{ standalone : true }" />
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <img class="img-thumbnail" [src]="baseFolder + product.ThumbnailImage" width="128" *ngIf="product.ThumbnailImage">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Price</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="number" class="form-control" formControlName="Price" [(ngModel)]="product.Price" />
+                                            <control-message [control]="frmProduct.controls.Price"></control-message>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" formControlName="IncludedVAT" [(ngModel)]="product.IncludedVAT" /> VAT
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Original Price</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="number" class="form-control" formControlName="OriginalPrice" [(ngModel)]="product.OriginalPrice" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Promotion Price</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="number" class="form-control" formControlName="PromotionPrice" [(ngModel)]="product.PromotionPrice" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" formControlName="Status" [(ngModel)]="product.Status"> Active
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" formControlName="HomeFlag" [(ngModel)]="product.HomeFlag"> Display on HomePage
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" formControlName="HotFlag" [(ngModel)]="product.HotFlag"> Hot Product
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="more-info" class="tab-pane fade">
+                                    <h3>More information</h3>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <textarea type="text" class="form-control" formControlName="Description" [(ngModel)]="product.Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Warranty(month)</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="number" class="form-control" formControlName="Warranty" [(ngModel)]="product.Warranty" />
+                                        </div>
+                                    </div>
+                                    <div class=" form-group ">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12 ">Content</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12 ">
+                                            <app-tiny-mce [elementId]="'my-editor-id'" [content]="product.Content" (onEditorKeyup)="keyupHandlerContentFunction($event)"></app-tiny-mce>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12 ">Meta Keyword</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12 ">
+                                            <input type="text" class="form-control" formControlName="MetaKeyword" [(ngModel)]="product.MetaKeyword" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12 ">Meta Description</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12 ">
+                                            <textarea type="text" class="form-control" formControlName="MetaDescription" [(ngModel)]="product.MetaDescription"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12 ">Tags</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12 ">
+                                            <input type="text" class="form-control" formControlName="Tags" [(ngModel)]="product.Tags" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ln_solid "></div>
+                            <div class="form-group ">
+                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 ">
+                                    <a [routerLink]="[ '/main/product/index'] " type="submit " class="btn btn-default mr-5 "><i class="mdi mdi-arrow-left mr-5 "></i>Back To Product List</a>
+                                    <button type="submit" class="btn btn-success"  [disabled]="frmProduct.invalid"><i class="mdi mdi-content-save mr-5 "></i>Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

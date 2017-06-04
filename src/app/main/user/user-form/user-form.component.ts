@@ -195,7 +195,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 			if (this.frmValid) {
 				this.user.Roles = this.myRoles;
 				if (fi.files.length > 0) {
-					this._uploadService.postWithFile('/api/upload/saveImage', null, fi.files).then((imageUrl: string) => {
+					this._uploadService.postWithFile('/api/upload/saveImage?type=avatar', null, fi.files).then((imageUrl: string) => {
 						this.user.Avatar = imageUrl;
 					}).then(() => {
 						this.saveData();

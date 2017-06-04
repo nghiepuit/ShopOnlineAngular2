@@ -6,4 +6,5 @@ export class MessageConstants {
 	public static UPDATED_OK_MSG = "Update Successfully!";
 	public static DELETED_OK_MSG = "Delete Successfully!";
 	public static USERNAME_EMAIL_EXISTING = "UserName or Email has been existed!"
+	public static PLEASE_CHOOSE_ITEM_YOU_WANT_DELETE = "Please choose item you want to delete!"
 }

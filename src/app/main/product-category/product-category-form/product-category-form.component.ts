@@ -111,7 +111,7 @@ export class ProductCategoryFormComponent implements OnInit, OnDestroy {
 				this.frmValid = true;
 			}
 			if (fi.files.length > 0) {
-				this._uploadService.postWithFile('/api/upload/saveImage', null, fi.files).then((imageUrl: string) => {
+				this._uploadService.postWithFile('/api/upload/saveImage?type=category', null, fi.files).then((imageUrl: string) => {
 					this.pc.Image = imageUrl;
 				}).then(() => {
 					this.saveData();
