@@ -11,6 +11,7 @@
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#basic">Basic information</a></li>
                                 <li><a data-toggle="tab" href="#more-info">More information</a></li>
+                                <li><a data-toggle="tab" href="#more-image">More Image</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div id="basic" class="tab-pane fade in active">
@@ -134,12 +135,80 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div id="more-image" class="tab-pane fade" *ngIf="product.ID">
+                                    <h3>More Image</h3>
+                                    <form class="form-horizontal form-label-left input_mask" novalidate #imageForm="ngForm" (ngSubmit)="saveProductImage(imageForm.valid)">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                <label>Choose Image</label>
+                                            </label>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <input type="file" name="imagePath" #imagePath class="form-control">
+                                                <p class="help-block label label-danger" *ngIf="!this.frmImageValid"> chỉ hỗ trợ định dạng *.png, *.jpg, *.jpeg </p>
+                                                <input type="hidden" name="imagePath" [(ngModel)]="imageProduct.Path" />
+                                                <input type="hidden" name="productId" [(ngModel)]="imageProduct.ProductId" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                <label>Caption</label>
+                                            </label>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <input class="form-control" name="caption" type="text" [(ngModel)]="imageProduct.Caption">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                <label></label>
+                                            </label>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <button type="submit" class="btn btn-success mt-24">
+                                                    <span class="mdi mdi-check">
+                                                        Add Image
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <table *ngIf="productImages && productImages.length > 0" border="1" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">
+                                                            Image
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Caption
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let image of productImages">
+                                                        <td class="text-center">
+                                                            <img width="100" [src]="baseFolder + image.Path" width="100" />
+                                                        </td>
+                                                        <td width="70%" class="table-caption">
+                                                            {{image.Caption}}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a class="btn btn-danger" title="Delete Image" (click)="deleteImage(image.ID)">
+                                                                <i class="fa fa-trash " aria-hidden="true "></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="ln_solid "></div>
                             <div class="form-group ">
                                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 ">
                                     <a [routerLink]="[ '/main/product/index'] " type="submit " class="btn btn-default mr-5 "><i class="mdi mdi-arrow-left mr-5 "></i>Back To Product List</a>
-                                    <button type="submit" class="btn btn-success"  [disabled]="frmProduct.invalid"><i class="mdi mdi-content-save mr-5 "></i>Save</button>
+                                    <button type="submit " class="btn btn-success " [disabled]="frmProduct.invalid "><i class="mdi mdi-content-save mr-5 "></i>Save</button>
                                 </div>
                             </div>
                         </form>

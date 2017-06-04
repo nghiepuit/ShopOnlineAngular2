@@ -66,8 +66,8 @@ export class ProductComponent implements OnInit {
 		}, error => this._dataService.handleError(error));
 	}
 
-	pageChanged($event) {
-		this.pageIndex = $event.page;
+	pageChanged(event) {
+		this.pageIndex = event.page;
 		this.loadData();
 	}
 
@@ -102,7 +102,7 @@ export class ProductComponent implements OnInit {
 					this.loadData();
 				}, error => this._dataService.handleError(error));
 			});
-		}else{
+		} else {
 			this._notificationService.printErrorMessage(MessageConstants.PLEASE_CHOOSE_ITEM_YOU_WANT_DELETE);
 		}
 	}
@@ -114,8 +114,21 @@ export class ProductComponent implements OnInit {
 		});
 	}
 
-	edit(id : any){
+	edit(id: any) {
 		this._router.navigate(['main/product/form', id]);
+	}
+
+	search() {
+		this._dataService.get('/api/product/getall?page=' + this.pageIndex + '&pageSize=' + this.pageSize + '&keyword=' + this.searchValue + '&categoryId=' + this.pcSearchValue)
+			.subscribe((response: any) => {
+				this.products = response.Items;
+				this.pageIndex = response.PageIndex;
+			}, error => this._dataService.handleError(error));
+	}
+
+	reset(){
+		this.searchValue = '';
+		this.pcSearchValue = '';
 	}
 
 }

@@ -24,7 +24,11 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 	public frmProduct: FormGroup;
 	public frmValid: boolean = true;
 	public baseFolder: string = SystemConstants.BASE_API;
-	// Tiny-Mce
+	// More Image
+	public productImages: any = [];
+	@ViewChild("imagePath") imagePath;
+	public imageProduct: any = {};
+	public frmImageValid: boolean = true;
 
 	constructor(
 		private _dataService: DataService,
@@ -34,7 +38,9 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 		private _formBuilder: FormBuilder,
 		private _uploadService: UploadService,
 		private _utilityService: UtilityService
-	) { }
+	) {
+
+	}
 
 	ngOnInit() {
 		this.subscriptionParams = this._activatedRoute.params.subscribe((params: Params) => {
@@ -99,8 +105,12 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 	}
 
 	getProductById(id: any) {
-		this._dataService.get('/api/product/detail/' + id).subscribe((response: any) => {			
+		this._dataService.get('/api/product/detail/' + id).subscribe((response: any) => {
 			this.product = response;
+			this.loadProductImages(id);
+			this.imageProduct = {
+				ProductId: id
+			};
 		}, error => {
 			this._dataService.handleError(error);
 		});
@@ -168,6 +178,49 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
 	keyupHandlerContentFunction(data: any) {
 		this.product.Content = data;
+	}
+
+	// More Image
+	loadProductImages(id: any) {
+		this._dataService.get('/api/productImage/getall?productId=' + id).subscribe((response: any[]) => {
+			this.productImages = response;
+		}, error => this._dataService.handleError(error));
+	}
+
+	deleteImage(id: number) {
+		this._notificationService.printConfirmationDialog(MessageConstants.CONFIRM_DELETE_MSG, () => {
+			this._dataService.delete('/api/productImage/delete', 'id', id.toString()).subscribe((response: any) => {
+				this._notificationService.printSuccessMessage(MessageConstants.DELETED_OK_MSG);
+				this.loadProductImages(this.product.ID);
+			}, error => this._dataService.handleError(error));
+		});
+	}
+
+	saveProductImage(valid: boolean) {
+		if (valid) {
+			let fi = this.imagePath.nativeElement;
+			//  Validate file extention
+			let arr = fi.files[0] ? fi.files[0].name.split('.') : '';
+			if (arr) {
+				let ext = arr[arr.length - 1];
+				if (ext.indexOf('png') == -1 && ext.indexOf('jpg') == -1 && ext.indexOf('jpeg') == -1) {
+					this.frmImageValid = false;
+				} else {
+					this.frmImageValid = true;
+				}
+			} else {
+				this.frmImageValid = true;
+			}
+			if (this.frmImageValid && fi.files.length > 0) {
+				this._uploadService.postWithFile('/api/upload/saveImage?type=product', null, fi.files).then((imageUrl: string) => {
+					this.imageProduct.Path = imageUrl;
+					this._dataService.post('/api/productImage/add', JSON.stringify(this.imageProduct)).subscribe((response: any) => {
+						this.loadProductImages(this.imageProduct.ProductId);
+						this._notificationService.printSuccessMessage(MessageConstants.CREATED_OK_MSG);
+					}, error => this._dataService.handleError(error));
+				});
+			}
+		}
 	}
 
 }

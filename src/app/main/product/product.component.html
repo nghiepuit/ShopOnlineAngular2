@@ -169,11 +169,11 @@
                             <td>{{ product.Name }}</td>
                             <td>{{ product.ProductCategory.Name }}</td>
                             <td>{{ product.Price | currency : 'VND' : true : '1.2-2' }}</td>
-                            <td width="10%" class="text-center">
-                                <a class="btn btn-icon mr-5" role="button" (click)="edit(product.ID)" *ngIf="_authService.hasPermission('PRODUCT','update')">
+                            <td width="20%" class="text-center">
+                                <a title="Edit Product" class="btn btn-icon mr-5" role="button" (click)="edit(product.ID)" *ngIf="_authService.hasPermission('PRODUCT','update')">
                                     <i class="mdi mdi-pencil"></i>
                                 </a>
-                                <a class="btn btn-icon" role="button" (click)="delete(product.ID)" *ngIf="_authService.hasPermission('PRODUCT','delete')">
+                                <a title="Delete Product" class="btn btn-icon" role="button" (click)="delete(product.ID)" *ngIf="_authService.hasPermission('PRODUCT','delete')">
                                     <i class="mdi mdi-delete"></i>
                                 </a>
                             </td>
