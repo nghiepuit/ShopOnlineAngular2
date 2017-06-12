@@ -11,7 +11,8 @@
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#basic">Basic information</a></li>
                                 <li><a data-toggle="tab" href="#more-info">More information</a></li>
-                                <li><a data-toggle="tab" href="#more-image">More Image</a></li>
+                                <li *ngIf="product.ID"><a data-toggle="tab" href="#more-image">More Image</a></li>
+                                <li *ngIf="product.ID" (click)="showQuantityManager(product.ID)"><a data-toggle="tab" href="#stock">Stock On Hand</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div id="basic" class="tab-pane fade in active">
@@ -201,6 +202,96 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                    </div>
+                                </div>
+                                <div id="stock" class="tab-pane fade" *ngIf="product.ID">
+                                    <h3>Stock On Hand</h3>
+                                    <form class="form-horizontal form-label-left input_mask" novalidate #quantityForm="ngForm" (ngSubmit)="saveProductQuantity(quantityForm.valid)">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                <label>Color</label>
+                                            </label>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <select class="form-control" required="required" #colorId="ngModel" name="colorId" [(ngModel)]="productQuantity.ColorId">
+                                                    <option value="">--Choose your color--</option>
+                                                    <option *ngFor="let color of colors" [value]="color.ID">
+                                                        {{ color.Name }}
+                                                    </option>
+                                                </select>
+                                                <small *ngIf="!colorId.valid && !(colorId.pristine && !quantityForm.submitted)" class="help-block label label-danger">
+                                                    Please choose your color
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                <label>Size</label>
+                                            </label>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <select class="form-control" required="required" #sizeId="ngModel" name="sizeId" [(ngModel)]="productQuantity.SizeId">
+                                                    <option value="">--Choose your size--</option>
+                                                    <option *ngFor="let size of sizes" [value]="size.ID">
+                                                        {{ size.Name }}
+                                                    </option>
+                                                </select>
+                                                <small *ngIf="!sizeId.valid && !(sizeId.pristine && !quantityForm.submitted)" class="help-block label label-danger">
+                                                    Please choose your size
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                <label>Quantity</label>
+                                            </label>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <input type="number" name="quantity" class="form-control" required="required" #quantity="ngModel" [(ngModel)]="productQuantity.Quantity">
+                                                <small *ngIf="!quantity.valid && !(quantity.pristine && !quantityForm.submitted)" class="help-block label label-danger">
+                                                    Please choose your quantity
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                <label></label>
+                                            </label>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <button type="submit" class="btn btn-success mt-24" [disabled]="!quantityForm.valid">
+                                                    <span class="mdi mdi-check">
+                                                        Add
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="table-responsive" *ngIf="productQuantities && productQuantities.length > 0">
+                                        <table class="table table-hover" border="1">
+                                            <thead>
+                                                <tr>
+                                                    <th>Color</th>
+                                                    <th>Size</th>
+                                                    <th>Quantity</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of productQuantities">
+                                                    <td>
+                                                        {{ item.Color.Name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ item.Size.Name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ item.Quantity }}
+                                                    </td>
+                                                    <td width="10%" class="text-center">
+                                                        <a (click)="deleteQuantity(item.ProductId,item.ColorId,item.SizeId)" title="Delete Quantity" class="btn btn-icon" role="button">
+                                                            <i class="mdi mdi-delete"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

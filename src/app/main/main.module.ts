@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
 import { FunctionModule } from './function/function.module';
+import { OrderModule } from './order/order.module';
 import { ProductCategoryModule } from './product-category/product-category.module';
 
 // Service
@@ -29,6 +30,7 @@ import { HeaderComponent } from './shared/header/header.component';
 		RoleModule,
 		FunctionModule,
 		ProductCategoryModule,
+		OrderModule,
 		RouterModule.forChild(mainRoutes)
 	],
 	providers: [

@@ -17,7 +17,9 @@ export const mainRoutes: Routes = [
 			// localhost:4200/main/product-category
 			{ path: 'product-category', loadChildren: './product-category/product-category.module#ProductCategoryModule' },
 			// localhost:4200/main/product-category
-			{ path: 'product', loadChildren: './product/product.module#ProductModule' }
+			{ path: 'product', loadChildren: './product/product.module#ProductModule' },
+			// localhost:4200/main/order
+			{ path: 'order', loadChildren: './order/order.module#OrderModule' }
 		]
 	}
 ]

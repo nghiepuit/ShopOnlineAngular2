@@ -1,0 +1,205 @@
+<div class="page-title">
+    <div class="title_left">
+        <h3>Thêm mới hóa đơn</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="clearfix"></div>
+    <div class="x_panel">
+        <div class="x_content">
+            <form class="form-horizontal form-label-left input_mask" novalidate #addEditForm="ngForm" (ngSubmit)="saveChanges(addEditForm.valid)" *ngIf="entity">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Name</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="hidden" [(ngModel)]="entity.ID" name="id" />
+                        <input type="text" #customerName="ngModel" [(ngModel)]="entity.CustomerName" required minlength="3" name="customerName" class="form-control">
+                        <small [hidden]="customerName.valid || (customerName.pristine && !addEditForm.submitted)" class="text-danger">
+                            Customer Name is required!
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Address </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <textarea class="form-control" #customerAddress="ngModel" [(ngModel)]="entity.CustomerAddress" name="customerAddress" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" #customerEmail="ngModel" [(ngModel)]="entity.CustomerEmail" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required name="customerEmail" class="form-control">
+                        <small [hidden]="customerEmail.valid || (customerEmail.pristine && !addEditForm.submitted)" class="text-danger">
+                            Email is required!
+                          </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" #customerMobile="ngModel" [(ngModel)]="entity.CustomerMobile" required name="customerMobile" class="form-control">
+                        <small [hidden]="customerMobile.valid || (customerMobile.pristine && !addEditForm.submitted)" class="text-danger">
+                            Phone number is required!
+                          </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Note </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <textarea class="form-control" #customerMessage="ngModel" [(ngModel)]="entity.CustomerMessage" name="customerMessage" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Payment Method</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select class="form-control" #paymentMethod="ngModel" name="paymentMethod" [(ngModel)]="entity.PaymentMethod">
+                            <option value="">--Choose your payment method--</option>
+                            <option value="CASH">In Cash</option>
+                            <option value="BANKING">Banking</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Payment Status</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select class="form-control" #paymentStatus="ngModel" name="paymentStatus" [(ngModel)]="entity.PaymentStatus">
+                            <option value="">--Choose your payment status--</option>
+                            <option value="PAID">PAID</option>
+                            <option value="UNPAID">UNPAID</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" [(ngModel)]="entity.Status" name="status" #status="ngModel">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-sm-12 col-xs-12">
+                    </div>
+                    <div class="col-md-2 col-sm-12 col-xs-12">
+                        <button type="button" (click)="showAddDetail()" class="btn btn-success">Add Order Detail</button>
+                    </div>
+                </div>
+                <table class="table" *ngIf="orderDetails && orderDetails.length > 0">
+                    <thead>
+                        <tr>
+                            <th>
+                                Product
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of orderDetails">
+                            <td>
+                                {{item.Product.Name}}
+                            </td>
+                            <td>
+                                {{item.Quantity | number}}
+                            </td>
+                            <td>{{item.Price | number}}</td>
+                            <td>{{item.Price * item.Quantity | number}}</td>
+                            <td>
+                                <button class="btn btn-danger" (click)="deleteDetail(item)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <button type="submit" class="btn btn-success" [disabled]="!addEditForm.form.valid">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div bsModal #addEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Add Order Detail</h4>
+                <button type="button" class="close pull-right" (click)="addEditModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-label-left input_mask" novalidate #detailForm="ngForm" (ngSubmit)="saveOrderDetail(detailForm.valid)" *ngIf="entity">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Product</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" name="productID" #productID="ngModel" required [(ngModel)]="detailEntity.ProductID">
+                                <option value="">--Choose your product--</option>
+                                <option *ngFor="let x of products" [value]="x.ID">{{x.Name}}</option>
+                            </select>
+                            <small [hidden]="productID.valid || (productID.pristine && !detailForm.submitted)" class="text-danger">
+                            Min length 3 character
+                          </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Color</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" required #colorId="ngModel" name="colorId" [(ngModel)]="detailEntity.ColorId">
+                                <option value="">--Choose your color--</option>
+                                <option *ngFor="let x of colors" [value]="x.ID">{{x.Name}}</option>
+                            </select>
+                            <small [hidden]="colorId.valid || (colorId.pristine && !detailForm.submitted)" class="text-danger">
+                            Color is required!
+                          </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Size</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" required #sizeId="ngModel" name="sizeId" [(ngModel)]="detailEntity.SizeId">
+                                <option value="">--Choose your size--</option>
+                                <option *ngFor="let x of sizes" [value]="x.ID">{{x.Name}}</option>
+                            </select>
+                            <small [hidden]="sizeId.valid || (sizeId.pristine && !detailForm.submitted)" class="text-danger">
+                Size is required!
+              </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Quantity</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="number" #quantity="ngModel" [(ngModel)]="detailEntity.Quantity" required name="quantity" class="form-control">
+                            <small [hidden]="quantity.valid || (quantity.pristine && !detailForm.submitted)" class="text-danger">
+                Quantity is required!
+              </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Price</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="number" #price="ngModel" [(ngModel)]="detailEntity.Price" required name="price" class="form-control">
+                            <small [hidden]="price.valid || (price.pristine && !detailForm.submitted)" class="text-danger">
+                Price is required
+              </small>
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                            <button type="button" (click)="addEditModal.hide()" class="btn btn-primary">Cancel</button>
+                            <button type="submit" class="btn btn-success" [disabled]="!detailForm.form.valid">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

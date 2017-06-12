@@ -1,0 +1,86 @@
+<div class="page-title">
+    <div class="title_left">
+        <h3>Order List</h3>
+    </div>
+    <div class="title_right">
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="clearfix"></div>
+    <div class="x_panel">
+        <div class="x_content">
+            <div class="x_title">
+                <div class="col-md-2 col-sm-2 col-xs-12 form-group">
+                    <input type="text" name="startDate" daterangepicker [options]="dateOptions" (selected)="changeStartDate($event)" [(ngModel)]="filterStartDate" class="form-control" placeholder="From Date">
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12 form-group ">
+                    <input type="text" name="endDate" daterangepicker [options]="dateOptions" (selected)="changeEndDate($event)" [(ngModel)]="filterEndDate" class="form-control" placeholder="To Date">
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12 form-group ">
+                    <input type="text" name="customerName" [(ngModel)]="filterCustomerName" class="form-control" placeholder="Customer Name">
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12 form-group ">
+                    <select class="form-control" name="filterPaymentStatus" [(ngModel)]="filterPaymentStatus">
+                        <option value="">--Choose your status--</option>
+                        <option value="True">PAID</option>
+                        <option value="False">UNPAID</option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-sm-3 col-xs-12 form-group">
+                    <button (click)="search()" type="submit" class="btn btn-success mr-5"><i class="mdi mdi-magnify mr-5"></i>Search</button>
+                    <a class="btn btn-icon" role="button" data-toggle="tooltip" title="Clear" (click)="reset()"><i class="mdi mdi-filter-remove"></i></a>
+                    <button type="button" class="btn btn-success" *ngIf="_authenService.hasPermission('ORDER','create')" [routerLink]="['/main/order/add']">
+                        <i class="mdi mdi-plus mr-5"></i> New Order
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <table *ngIf="orders && orders.length > 0" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Phone Number</th>
+                                <th>Giá trị</th>
+                                <td>Order Date</td>
+                                <td>Status</td>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of orders">
+                                <td>{{ item.CustomerName }}</td>
+                                <td class="text-right">{{ item.CustomerMobile }}</td>
+                                <td class="text-right">53453</td>
+                                <td>{{ item.CreatedDate | date : 'dd/MM/yyyy' }}</td>
+                                <td class="text-center">
+                                    <span class="label label-danger">
+										{{ item.Status == 'true' ? 'PAID' : 'UNPAID' }}
+		                        	</span>
+                                </td>
+                                <td width="10%" class="text-center">
+                                    <a title="Order Detail" class="btn btn-icon mr-5" role="button" routerLink="/main/order/detail/{{item.ID}}" *ngIf="_authenService.hasPermission('ORDER','update')">
+                                        <i class="mdi mdi-pencil"></i>
+                                    </a>
+                                    <a title="Delete Order" class="btn btn-icon" role="button" *ngIf="_authenService.hasPermission('ORDER','delete')" (click)="delete(item.ID)">
+                                        <i class="mdi mdi-delete"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="orders && orders.length == 0" class="col-md-12">
+                <div class="alert alert-info">
+                    <strong>Warning!</strong> Don't have any invoice in your system
+                </div>
+            </div>
+            <div *ngIf="orders && orders.length > 0" class="col-md-12 text-right">
+                <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow" [(ngModel)]="pageIndex" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

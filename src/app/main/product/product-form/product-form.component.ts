@@ -29,6 +29,13 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 	@ViewChild("imagePath") imagePath;
 	public imageProduct: any = {};
 	public frmImageValid: boolean = true;
+	// Stock on hand
+	public productQuantity: any = {};
+	public productQuantities: any = [];
+	public sizeId: number = null;
+	public colorId: number = null;
+	public colors: any[];
+	public sizes: any[];
 
 	constructor(
 		private _dataService: DataService,
@@ -221,6 +228,57 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 				});
 			}
 		}
+	}
+
+	// Stock on hand
+	public showQuantityManager(id: number) {
+		this.productQuantity = {
+			ProductId: id
+		};
+		this.loadColors();
+		this.loadSizes();
+		this.loadProductQuantities(id);
+	}
+
+	loadColors() {
+		this._dataService.get('/api/productQuantity/getcolors').subscribe((res: any[]) => {
+			this.colors = res;
+		}, error => this._dataService.handleError(error));
+	}
+
+	loadSizes() {
+		this._dataService.get('/api/productQuantity/getsizes').subscribe((res: any[]) => {
+			this.sizes = res;
+		}, error => this._dataService.handleError(error));
+	}
+
+	loadProductQuantities(id: number) {
+		this._dataService.get('/api/productQuantity/getall?productId=' + id + '&sizeId=' + this.sizeId + '&colorId=' + this.colorId).subscribe((res: any[]) => {
+			this.productQuantities = res;
+		}, error => this._dataService.handleError(error));
+	}
+
+	saveProductQuantity(isValid: boolean) {
+		console.log(JSON.stringify(this.productQuantity));
+		if (isValid) {
+			this._dataService.post('/api/productQuantity/add', JSON.stringify(this.productQuantity)).subscribe((res: any) => {
+				this.loadProductQuantities(this.productQuantity.ProductId);
+				this.productQuantity = {
+					ProductId: this.productQuantity.ProductId
+				};
+				this._notificationService.printSuccessMessage(MessageConstants.CREATED_OK_MSG);
+			}, error => this._dataService.handleError(error));
+		}
+	}
+
+	public deleteQuantity(productId: number, colorId: string, sizeId: string) {
+		var parameters = { "productId": productId, "sizeId": sizeId, "colorId": colorId };
+		this._notificationService.printConfirmationDialog(MessageConstants.CONFIRM_DELETE_MSG, () => {
+			this._dataService.deleteWithMultiParams('/api/productQuantity/delete', parameters).subscribe((response: any) => {
+				this._notificationService.printSuccessMessage(MessageConstants.DELETED_OK_MSG);
+				this.loadProductQuantities(productId);
+			}, error => this._dataService.handleError(error));
+		});
 	}
 
 }
